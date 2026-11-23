@@ -1,0 +1,41 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S2-B",
+  "artifact": "FSAR S2-B BGE Encoding Protocol V1",
+  "status": "FROZEN_BEFORE_EMBEDDING",
+
+  "encoder": "BAAI/bge-large-zh-v1.5",
+  "local_model_path": "models/BAAI/bge-large-zh-v1___5",
+
+  "encoder_frozen": true,
+  "training_mode": false,
+
+  "sentence_transformer_output": true,
+  "expected_dimension": 1024,
+  "expected_normalized_output": true,
+
+  "query_source": "data/canonical/fsar_s2/train_query_gold_map_v1.jsonl",
+  "query_text_field": "current_user",
+  "expected_query_rows": 62889,
+
+  "response_source": "data/canonical/fsar_s2/train_unique_responses_v1.jsonl",
+  "response_text_field": "response_text",
+  "expected_response_rows": 61502,
+
+  "query_prefix": null,
+  "response_prefix": null,
+
+  "embedding_dtype": "float32",
+  "storage_format": "npy",
+
+  "runtime_batch_size": 64,
+  "runtime_batch_size_is_scientifically_invariant": true,
+
+  "dev_payload_used": false,
+  "test_payload_used": false,
+
+  "output_order_policy": "Embedding row order must exactly match input JSONL row order.",
+
+  "hard_negative_mining": false,
+  "retrieval_metrics_computed": false
+}

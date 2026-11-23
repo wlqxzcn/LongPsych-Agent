@@ -1,0 +1,67 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S3-B",
+  "artifact": "FSAR S3-B Internal Split and Ranking Supervision Protocol V1",
+  "status": "FROZEN_BEFORE_SPLIT",
+
+  "scope": "TRAIN_ONLY",
+
+  "ranking_rows": 62889,
+  "ranking_candidate_policy": {
+    "gold_candidates_per_query": 1,
+    "negative_candidates_per_query": 100,
+    "negative_source": "FROZEN_DENSE_TOP100_RESERVOIR",
+    "negative_sampling": "NONE",
+    "all_top100_negatives_used": true,
+    "total_candidates_per_query": 101
+  },
+
+  "ranking_pair_instances_per_full_pass": 6351789,
+
+  "future_supervision": {
+    "available_rows": 17458,
+    "attachment": "FACTUAL_GOLD_PAIR_ONLY",
+    "negative_future_labels": "FORBIDDEN",
+    "oversampling": false,
+    "future_loss_masked_when_unavailable": true
+  },
+
+  "internal_validation": {
+    "method": "StratifiedGroupKFold",
+    "n_splits": 5,
+    "group": "dialogue_id",
+    "shuffle": true,
+    "random_state": 42,
+    "seed_search": false,
+    "stratification_variable": "NO_FUTURE_OR_FUTURE_VALUE_LABEL"
+  },
+
+  "future_strata": [
+    "NO_FUTURE",
+    "V_-2",
+    "V_-1",
+    "V_0",
+    "V_1",
+    "V_2"
+  ],
+
+  "model_comparison_fairness": {
+    "same_fold_assignment": true,
+    "same_ranking_queries": true,
+    "same_gold_responses": true,
+    "same_top100_negative_candidates": true
+  },
+
+  "rank_only_future_loss": false,
+  "r_future_future_loss": true,
+  "qr_future_future_loss": true,
+
+  "future_loss_weight_beta": "NOT_YET_FROZEN",
+  "model_architecture": "NOT_YET_FROZEN",
+  "optimizer": "NOT_YET_FROZEN",
+
+  "dev_payload_used": false,
+  "test_payload_used": false,
+
+  "no_posthoc_fold_seed_search": true
+}

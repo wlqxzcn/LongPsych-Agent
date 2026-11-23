@@ -1,0 +1,9 @@
+numpy
+pandas
+torch
+sentence-transformers
+faiss-cpu
+scikit-learn
+scipy
+jieba
+matplotlib

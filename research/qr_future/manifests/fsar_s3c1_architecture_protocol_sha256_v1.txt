@@ -1,0 +1,1 @@
+8938e309b0131b2f9961c116c895415c3be227ebba7e3df65f653ee674accf2c  protocols/fsar_s3c1_model_architecture_and_loss_v1.json

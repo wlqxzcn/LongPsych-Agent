@@ -1,0 +1,75 @@
+{
+  "artifact": "FSAR S12B No-Product Ranking Ablation Protocol V1",
+  "status": "FROZEN_BEFORE_TRAINING",
+  "purpose": "Evaluate whether the query-response product interaction is necessary in the ranking branch when future-state auxiliary supervision is retained.",
+  "model_source": "src/models/s12b_fsar_ablation_models.py",
+  "model_source_sha256": "10878111132b0e9ec46032c4bcd3e613e6a0a0742b561776bee34a0dc6c8ca4f",
+  "ranking_architecture": {
+    "features": [
+      "z_r",
+      "abs(z_q - z_r)"
+    ],
+    "product_interaction_in_ranking": false,
+    "query_adapter": "Residual linear adapter",
+    "response_adapter": "Residual linear adapter",
+    "normalization": "L2"
+  },
+  "initialization": {
+    "query_adapter": "zero",
+    "response_adapter": "zero",
+    "response_feature_weights": "zero",
+    "absolute_difference_weights": "-1/sqrt(1024)",
+    "initial_score": "-L1(z_q,z_r)/sqrt(1024)",
+    "dense_score_equivalence": false
+  },
+  "conditions": {
+    "R_FUTURE": {
+      "class": "RFutureNoRankProductModel",
+      "ranking_product": false,
+      "future_features": [
+        "z_r",
+        "zeros"
+      ]
+    },
+    "QR_FUTURE": {
+      "class": "QRFutureAuxNoRankProductModel",
+      "ranking_product": false,
+      "future_features": [
+        "z_r",
+        "z_q * z_r"
+      ],
+      "product_interaction_scope": "future auxiliary branch only"
+    }
+  },
+  "training": {
+    "reference_protocol": "FSAR S7 Beta=8",
+    "beta": 8,
+    "loss": "ranking_loss + beta * future_loss",
+    "optimizer": "Adam",
+    "learning_rate": 0.0001,
+    "batch_size": 128,
+    "max_epochs": 20,
+    "seed": 42,
+    "folds": 5,
+    "checkpoint_selection": "MIN_VALIDATION_RANKING_CROSS_ENTROPY"
+  },
+  "data": {
+    "ranking_rows": 62889,
+    "unique_responses": 61502,
+    "candidates_per_query": 101,
+    "future_available_rows": 17458,
+    "split_unit": "dialogue"
+  },
+  "evaluation": {
+    "internal_oof": true,
+    "dev_payload_used_during_training": false,
+    "test_payload_used_during_training": false,
+    "retrieval_metrics_during_training": false,
+    "future_metrics_during_training": false
+  },
+  "output_policy": {
+    "independent_directory": "results/phase_s12b",
+    "preserve_s7_outputs": true,
+    "temporary_artifacts_before_promotion": true
+  }
+}

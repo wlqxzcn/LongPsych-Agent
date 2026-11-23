@@ -1,0 +1,56 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S3-A",
+  "artifact": "FSAR S3-A Ranking-Future Supervision Join Protocol V1",
+  "status": "FROZEN_BEFORE_JOIN",
+
+  "scope": "TRAIN_ONLY",
+
+  "ranking_query_universe": 62889,
+  "ranking_candidate_reservoir_depth": 100,
+
+  "future_supervision": {
+    "construct": "agency_constructive_orientation",
+    "source": "STRICT_DUAL_CONSENSUS_VALUE_ONLY",
+    "expected_rows": 17458,
+    "labels": [-2, -1, 0, 1, 2],
+    "expected_label_counts": {
+      "-2": 13,
+      "-1": 1914,
+      "0": 3041,
+      "1": 8798,
+      "2": 3692
+    }
+  },
+
+  "join_key": "sample_id == query_id",
+
+  "canonical_query_identity": [
+    "dialogue_id",
+    "target_pair_index"
+  ],
+
+  "ranking_supervision": {
+    "positive": "FACTUAL_GOLD_RESPONSE",
+    "negatives": "FROZEN_DENSE_TOP100_NON_GOLD_RESERVOIR"
+  },
+
+  "future_loss_attachment": "FACTUAL_GOLD_PAIR_ONLY",
+
+  "future_label_for_negative_candidates": "FORBIDDEN",
+
+  "supervision_text_used_as_model_input": false,
+  "future_user_used_as_model_input": false,
+
+  "output_contains_text": false,
+
+  "formal_training_negative_count": "NOT_YET_FROZEN",
+  "negative_sampling_strategy": "NOT_YET_FROZEN",
+
+  "internal_train_validation_split": "NOT_YET_FROZEN",
+
+  "reranker_training_performed": false,
+
+  "dev_payload_used": false,
+  "test_payload_used": false
+}

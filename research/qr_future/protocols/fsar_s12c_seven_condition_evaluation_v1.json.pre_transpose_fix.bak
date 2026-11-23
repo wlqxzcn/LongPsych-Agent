@@ -1,0 +1,403 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S12C_SEVEN_CONDITION_OOF_EVALUATION",
+  "artifact": "FSAR S12C Seven-Condition Matched OOF Evaluation V1",
+  "status": "FROZEN_BEFORE_SEVEN_CONDITION_METRIC_REVEAL",
+  "scope": "TRAIN_INTERNAL_OOF_ONLY",
+  "interpretation": "EXPLORATORY_COMPONENT_ABLATION_NO_CONFIRMATORY_GATE",
+  "evaluation_script": "src/evaluation/s12c_seven_condition_oof_evaluation.py",
+  "evaluation_script_sha256": "f3d88728f0c09a969b8e8c88df08ff1109627950a353f55aff7f411a7f2c834b",
+  "inputs": {
+    "master": {
+      "path": "data/supervision/fsar_s3/fsar_s3a_ranking_future_master_index_v1.jsonl",
+      "sha256": "d9196a5ea11a9433c0550db6ebcfce76a6965ebec14ae9e3fb6660cc1e6ab3be"
+    },
+    "fold": {
+      "path": "data/supervision/fsar_s3/fsar_s3b_internal_fold_assignment_v1.npy",
+      "sha256": "a4f129fb6b5e5d23aad4215d261d33e4be2dc1ff34f8dcb7e4f0c92d430bcdf9"
+    },
+    "future_mask": {
+      "path": "data/supervision/fsar_s3/fsar_s3c0_future_loss_eligibility_by_fold_v1.npz",
+      "sha256": "84ee56cf9549a9842dc717bfd6a8a3cad41c457298356a8796dbfbe7a9b85a3d"
+    },
+    "reservoir": {
+      "path": "cache/hard_negatives/fsar_train_dense_top100_reservoir_v1.npz",
+      "sha256": "e122dfe8f2c4eb8902068090d5852c79317641ea850720d58e4d4f4133474ab0"
+    },
+    "query_embedding": {
+      "path": "cache/embeddings/fsar_train_queries_bge_v1.npy",
+      "sha256": "18aa1ed637bef3980775c10d96d1cde6112863b0c5761e2e69fb7ab89c981005"
+    },
+    "response_embedding": {
+      "path": "cache/embeddings/fsar_train_unique_responses_bge_v1.npy",
+      "sha256": "7a4ee8d462adce73174c853bf21b758132f5243020fa6253b1c01a99973bc96f"
+    },
+    "s12c_model": {
+      "path": "src/models/s12c_matched_ablation_models.py",
+      "sha256": "be4db64f5203830e742d9bc078900d106769b4b6380a1de95ca77c542521f99c"
+    },
+    "s12c_architecture_protocol": {
+      "path": "protocols/fsar_s12c_matched_ablation_v1.json",
+      "sha256": "2e954b30aa028b997d0528fb3657dbe634e8c0043aa0c1c7bda4e819a329bce1"
+    },
+    "s12c_training_script": {
+      "path": "src/training/s12c_train_matched_ablation_beta8_5fold.py",
+      "sha256": "5730ccc5fc49f9a91c134a2ffa6bc06c374cb4bb0b3618c12a2a45b9768f908d"
+    },
+    "s6a_protocol": {
+      "path": "protocols/fsar_s6a_oof_retrieval_reveal_protocol_v1.json",
+      "sha256": "d0cd870354e2c4285bf9bbc0a5c26fea016853293d9364db935ab5883b552e7c"
+    },
+    "s6a_ranks": {
+      "path": "results/phase_s6/s6a_oof_retrieval_ranks_v1.npz",
+      "sha256": "3160c011cd5f5fd135ac8d062576f7a29f20dfd06585da4ac108148dc0b54e40"
+    },
+    "s6a_summary": {
+      "path": "results/phase_s6/s6a_oof_retrieval_reveal_summary_v1.json",
+      "sha256": "68b312745d8c0fbeb271d07d0f37eef7ff1b065d79a8ebf81c991ca97b9f73ed"
+    },
+    "rank_only_full_oof": {
+      "path": "results/phase_s12c/rank_only_matched_v1/oof/s12c_rank_only_full_matched_oof_scores_v1.npz",
+      "sha256": "f20c1fd62a2bfc4b9b12093dc26d45e34a658bdf4bb5fb81e8885bc180c7bb94"
+    },
+    "rank_only_full_summary": {
+      "path": "results/phase_s12c/rank_only_matched_v1/summaries/s12c_rank_only_full_matched_training_summary_v1.json",
+      "sha256": "399a23edcbc61dfbe9a074059ca858c270252dd93e9f3af0f1247365be0d90d0"
+    },
+    "rank_only_no_product_oof": {
+      "path": "results/phase_s12c/rank_only_matched_v1/oof/s12c_rank_only_no_product_matched_oof_scores_v1.npz",
+      "sha256": "4cbb91324be34e71f7a5a30b86198bed57c2320f4fa9f51ccc1c3f3ac9eee7f7"
+    },
+    "rank_only_no_product_summary": {
+      "path": "results/phase_s12c/rank_only_matched_v1/summaries/s12c_rank_only_no_product_matched_training_summary_v1.json",
+      "sha256": "d975eaf5d314f5a14241c1c1357af72744b3b3cfe49ec296ef8843c8013b9d32"
+    },
+    "r_future_full_oof": {
+      "path": "results/phase_s12c/s12c_beta8_r_future_full_oof_scores_v1.npz",
+      "sha256": "c2b9cabf149f7517cc6457f81fe0a8defa6b74ec43b83a5b22725213f24732ac"
+    },
+    "r_future_full_summary": {
+      "path": "results/phase_s12c/s12c_beta8_r_future_full_training_summary_v1.json",
+      "sha256": "3a4c8ac31e5e7d6e112e203e996a09dc52682a3392d3a24d3055f2149e714bc5"
+    },
+    "r_future_no_product_oof": {
+      "path": "results/phase_s12c/s12c_beta8_r_future_no_product_oof_scores_v1.npz",
+      "sha256": "e0500cf39d75002569e6bf3fb6269489bf7f303ada7c545bc699d77c78cab55c"
+    },
+    "r_future_no_product_summary": {
+      "path": "results/phase_s12c/s12c_beta8_r_future_no_product_training_summary_v1.json",
+      "sha256": "2a1a9e879b5b8e0db8f545647704285f68b62aa85d919ac3613ee51cd552058c"
+    },
+    "qr_future_full_oof": {
+      "path": "results/phase_s12c/s12c_beta8_qr_future_full_oof_scores_v1.npz",
+      "sha256": "93e0b536906c6e308e74b07635da2a00eaa774e928bffa3bbeaea7142a46f3fc"
+    },
+    "qr_future_full_summary": {
+      "path": "results/phase_s12c/s12c_beta8_qr_future_full_training_summary_v1.json",
+      "sha256": "966a99b14f2ab354bed82e42c0a0ba0a1b4e2dd1e22d25b7cb741e1ad6617011"
+    },
+    "qr_future_no_product_oof": {
+      "path": "results/phase_s12c/s12c_beta8_qr_future_no_product_oof_scores_v1.npz",
+      "sha256": "cb90dd863d073a63f5645e227d3a12349e54640807b1cb7372a4d1a8be12d3b9"
+    },
+    "qr_future_no_product_summary": {
+      "path": "results/phase_s12c/s12c_beta8_qr_future_no_product_training_summary_v1.json",
+      "sha256": "23d9d0ef739943ea8673f7f1cfd7d4ca731fce5a152e4173f596bc5aad308036"
+    }
+  },
+  "retrieval": {
+    "conditions": [
+      "DENSE_101",
+      "RANK_ONLY_FULL_MATCHED",
+      "RANK_ONLY_NO_PRODUCT_MATCHED",
+      "R_FUTURE_FULL",
+      "R_FUTURE_NO_PRODUCT",
+      "QR_FUTURE_FULL",
+      "QR_FUTURE_NO_PRODUCT"
+    ],
+    "candidate_count": 101,
+    "rank_definition": "1 + COUNT(candidate_score > gold_score)",
+    "tie_policy": "STRICT_GREATER",
+    "primary_metric": "DIALOGUE_MACRO_MRR",
+    "metrics": [
+      "MRR",
+      "R@1",
+      "R@5",
+      "R@10",
+      "R@20"
+    ],
+    "secondary_aggregation": [
+      "DIALOGUE_MACRO",
+      "QUERY_MICRO_DESCRIPTIVE"
+    ],
+    "bootstrap": {
+      "unit": "dialogue_id",
+      "paired": true,
+      "same_resampled_dialogues_for_all_conditions": true,
+      "replicates": 5000,
+      "seed": 42,
+      "ci": 0.95,
+      "method": "PERCENTILE"
+    },
+    "planned_contrasts": [
+      {
+        "name": "RANK_ONLY_FULL_MATCHED_MINUS_DENSE_101",
+        "terms": [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            -1
+          ]
+        ]
+      },
+      {
+        "name": "RANK_ONLY_NO_PRODUCT_MATCHED_MINUS_DENSE_101",
+        "terms": [
+          [
+            2,
+            1
+          ],
+          [
+            0,
+            -1
+          ]
+        ]
+      },
+      {
+        "name": "R_FUTURE_FULL_MINUS_RANK_ONLY_FULL_MATCHED",
+        "terms": [
+          [
+            3,
+            1
+          ],
+          [
+            1,
+            -1
+          ]
+        ]
+      },
+      {
+        "name": "QR_FUTURE_FULL_MINUS_RANK_ONLY_FULL_MATCHED",
+        "terms": [
+          [
+            5,
+            1
+          ],
+          [
+            1,
+            -1
+          ]
+        ]
+      },
+      {
+        "name": "R_FUTURE_NO_PRODUCT_MINUS_RANK_ONLY_NO_PRODUCT_MATCHED",
+        "terms": [
+          [
+            4,
+            1
+          ],
+          [
+            2,
+            -1
+          ]
+        ]
+      },
+      {
+        "name": "QR_FUTURE_NO_PRODUCT_MINUS_RANK_ONLY_NO_PRODUCT_MATCHED",
+        "terms": [
+          [
+            6,
+            1
+          ],
+          [
+            2,
+            -1
+          ]
+        ]
+      },
+      {
+        "name": "R_FUTURE_NO_PRODUCT_MINUS_FULL",
+        "terms": [
+          [
+            4,
+            1
+          ],
+          [
+            3,
+            -1
+          ]
+        ]
+      },
+      {
+        "name": "QR_FUTURE_NO_PRODUCT_MINUS_FULL",
+        "terms": [
+          [
+            6,
+            1
+          ],
+          [
+            5,
+            -1
+          ]
+        ]
+      },
+      {
+        "name": "DID_QR_VS_R_NO_PRODUCT_EFFECT",
+        "terms": [
+          [
+            6,
+            1
+          ],
+          [
+            5,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      }
+    ]
+  },
+  "future_state": {
+    "conditions": [
+      "R_FUTURE_FULL",
+      "R_FUTURE_NO_PRODUCT",
+      "QR_FUTURE_FULL",
+      "QR_FUTURE_NO_PRODUCT"
+    ],
+    "eligible_rows": 17458,
+    "eligible_dialogues": 1653,
+    "classes": [
+      -2,
+      -1,
+      0,
+      1,
+      2
+    ],
+    "thresholds": [
+      -2,
+      -1,
+      0,
+      1
+    ],
+    "classification_metrics": [
+      "accuracy",
+      "macro_f1",
+      "balanced_accuracy",
+      "weighted_f1",
+      "ordinal_mae"
+    ],
+    "probability_metrics": [
+      "brier",
+      "ordinal_logloss",
+      "expected_state_mae",
+      "threshold_accuracy"
+    ],
+    "classification_aggregation": "ROW_LEVEL",
+    "probability_aggregation": "DIALOGUE_MACRO",
+    "bootstrap": {
+      "unit": "dialogue_id",
+      "paired": true,
+      "same_resampled_dialogues_for_all_conditions": true,
+      "replicates": 5000,
+      "seed": 43,
+      "ci": 0.95,
+      "method": "PERCENTILE"
+    },
+    "planned_contrasts": [
+      {
+        "name": "R_FUTURE_NO_PRODUCT_MINUS_FULL",
+        "terms": [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            -1
+          ]
+        ]
+      },
+      {
+        "name": "QR_FUTURE_NO_PRODUCT_MINUS_FULL",
+        "terms": [
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            -1
+          ]
+        ]
+      },
+      {
+        "name": "QR_FUTURE_FULL_MINUS_R_FUTURE_FULL",
+        "terms": [
+          [
+            2,
+            1
+          ],
+          [
+            0,
+            -1
+          ]
+        ]
+      },
+      {
+        "name": "QR_FUTURE_NO_PRODUCT_MINUS_R_FUTURE_NO_PRODUCT",
+        "terms": [
+          [
+            3,
+            1
+          ],
+          [
+            1,
+            -1
+          ]
+        ]
+      },
+      {
+        "name": "DID_QR_VS_R_NO_PRODUCT_EFFECT",
+        "terms": [
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      }
+    ]
+  },
+  "multiple_comparison_adjustment": "NONE_EXPLORATORY_CI_ONLY",
+  "no_posthoc_success_gate": true,
+  "dev_payload_used": false,
+  "test_payload_used": false,
+  "outputs": [
+    "results/phase_s12c/seven_condition_evaluation_v1/s12c_seven_condition_evaluation_summary_v1.json",
+    "results/phase_s12c/seven_condition_evaluation_v1/s12c_seven_condition_evaluation_arrays_v1.npz",
+    "results/phase_s12c/seven_condition_evaluation_v1/s12c_seven_condition_evaluation_report_v1.txt"
+  ],
+  "overwrite_policy": "REFUSE_IF_PROTOCOL_OR_OUTPUT_EXISTS",
+  "s6a_protocol_status": "FROZEN_BEFORE_FIRST_RETRIEVAL_METRIC_COMPUTATION"
+}

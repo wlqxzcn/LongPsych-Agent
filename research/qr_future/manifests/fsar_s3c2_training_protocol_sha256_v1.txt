@@ -1,0 +1,1 @@
+e30ca60f61d12ac0b291a473a656eed326b24cee1d324f06c21623bfc4d0d51e  protocols/fsar_s3c2_training_and_checkpoint_protocol_v1.json

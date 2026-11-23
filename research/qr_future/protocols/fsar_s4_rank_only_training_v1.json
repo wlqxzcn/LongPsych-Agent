@@ -1,0 +1,81 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S4",
+  "artifact": "FSAR S4 Rank-Only 5-Fold Formal Training Protocol V1",
+  "status": "FROZEN_BEFORE_FIRST_FORMAL_PARAMETER_UPDATE",
+
+  "scope": "TRAIN_INTERNAL_5FOLD_ONLY",
+
+  "condition": "RANK_ONLY",
+
+  "model": {
+    "implementation": "src/models/s3c1_fsar_models.py::RankOnlyModel",
+    "encoder": "FROZEN_BGE_EMBEDDING_CACHE",
+    "future_head": false,
+    "future_supervision_used": false
+  },
+
+  "folds": {
+    "n_splits": 5,
+    "group": "dialogue_id",
+    "assignment": "FROZEN_S3B",
+    "folds_run": [0, 1, 2, 3, 4]
+  },
+
+  "ranking": {
+    "gold_per_query": 1,
+    "hard_negatives_per_query": 100,
+    "candidates_per_query": 101,
+    "gold_position": 0,
+    "negative_sampling": "NONE",
+    "loss": "LISTWISE_SOFTMAX_CROSS_ENTROPY"
+  },
+
+  "optimizer": {
+    "name": "Adam",
+    "learning_rate": 0.0001,
+    "betas": [0.9, 0.999],
+    "eps": 1e-8,
+    "weight_decay": 0.0
+  },
+
+  "training": {
+    "batch_size_queries": 128,
+    "gradient_accumulation": 1,
+    "max_epochs": 20,
+    "drop_last": false,
+    "mixed_precision": false,
+    "lr_scheduler": null,
+    "gradient_clipping": null
+  },
+
+  "randomness": {
+    "model_initialization_seed": 42,
+    "seed_search": false,
+    "epoch_shuffle_seed_formula": "42000 + fold_id * 100 + epoch_id"
+  },
+
+  "checkpoint_selection": {
+    "metric": "VALIDATION_RANKING_CROSS_ENTROPY",
+    "direction": "MINIMIZE",
+    "epochs": "1_TO_20",
+    "tie_break": "EARLIEST_EPOCH",
+    "retrieval_metrics_used": false,
+    "future_metrics_used": false
+  },
+
+  "formal_performance_reveal": {
+    "mrr_computed_during_training": false,
+    "recall_computed_during_training": false,
+    "oof_candidate_scores_saved": true,
+    "oof_ranking_ce_saved": true
+  },
+
+  "tf32": false,
+  "dtype": "float32",
+
+  "dev_payload_used": false,
+  "test_payload_used": false,
+
+  "posthoc_hyperparameter_change": false
+}

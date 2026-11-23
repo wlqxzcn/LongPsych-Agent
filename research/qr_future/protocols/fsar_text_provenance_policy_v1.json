@@ -1,0 +1,39 @@
+{
+  "project": "PsychResponse_FSAR",
+  "artifact": "FSAR Text Provenance Policy V1",
+  "status": "FROZEN_BEFORE_MODEL_TRAINING",
+
+  "authoritative_model_text_source": "data/canonical/psydial_dialogues.jsonl",
+
+  "future_state_supervision_role": "LABEL_AND_PROVENANCE_ONLY",
+
+  "supervision_text_used_as_model_input": false,
+
+  "provenance_identity_key": [
+    "dialogue_id",
+    "target_pair_index"
+  ],
+
+  "provenance_text_equivalence": {
+    "unicode_normalization": "NFKC",
+    "strip_leading_trailing_whitespace": true,
+    "collapse_internal_whitespace": true,
+    "remove_punctuation": false,
+    "lowercase": false,
+    "semantic_fuzzy_matching": false
+  },
+
+  "raw_artifacts_modified": false,
+
+  "observed_diagnostic_basis": {
+    "observability_rows": 46091,
+    "exact_text_mismatches": 263,
+    "normalized_text_mismatches": 0,
+    "affected_dialogues": 125,
+    "value_rows": 17458,
+    "value_rows_with_exact_text_mismatch": 90,
+    "pair_relocation_detected": false
+  },
+
+  "interpretation": "The 263 exact-string mismatches are formatting-level differences only. All resolve under NFKC plus whitespace normalization at the identical dialogue_id and target_pair_index. No supervision rows are deleted or relabeled."
+}

@@ -1,0 +1,103 @@
+{
+  "artifact": "FSAR S6-B OOF Future-State Prediction Evaluation Protocol V1",
+  "status": "FROZEN_BEFORE_METRIC_COMPUTATION",
+  "purpose": "Evaluate auxiliary future-state prediction from out-of-fold logits. This evaluation does not replace or override the S6-A primary retrieval result.",
+  "inputs": {
+    "master_index": {
+      "path": "data/supervision/fsar_s3/fsar_s3a_ranking_future_master_index_v1.jsonl",
+      "sha256": "d9196a5ea11a9433c0550db6ebcfce76a6965ebec14ae9e3fb6660cc1e6ab3be"
+    },
+    "fold_assignment": {
+      "path": "data/supervision/fsar_s3/fsar_s3b_internal_fold_assignment_v1.npy",
+      "sha256": "a4f129fb6b5e5d23aad4215d261d33e4be2dc1ff34f8dcb7e4f0c92d430bcdf9"
+    },
+    "R_FUTURE_OOF": {
+      "path": "results/phase_s5/s5_r_future_oof_scores_v1.npz",
+      "sha256": "12deca452373075b19b3699d037578c049d74cb7f49bdc88aebb36e42e9d4ecc"
+    },
+    "QR_FUTURE_OOF": {
+      "path": "results/phase_s5/s5_qr_future_oof_scores_v1.npz",
+      "sha256": "8928ebb960bc6eb821f7419e188b83bdd306be1dfcbf96764b35381f633ad376"
+    },
+    "model_source": {
+      "path": "src/models/s3c1_fsar_models.py",
+      "sha256": "7dbd9dcdb1fb382ff031e61eb51058016367be24fe89ab8c95bc9b5fe1d8d755"
+    },
+    "architecture_protocol": {
+      "path": "protocols/fsar_s3c1_model_architecture_and_loss_v1.json",
+      "sha256": "8938e309b0131b2f9961c116c895415c3be227ebba7e3df65f653ee674accf2c"
+    },
+    "training_protocol": {
+      "path": "protocols/fsar_s5_future_aux_training_v1.json",
+      "sha256": "33dd9bfd795300a73e1450a9278d06ae75809a992f504eaffe96fc28f97e0882"
+    }
+  },
+  "cohort": {
+    "filter": "future_available == true",
+    "expected_rows": 17458,
+    "expected_labeled_dialogues": 1653,
+    "ordered_classes": [-2, -1, 0, 1, 2],
+    "expected_class_counts": {
+      "-2": 13,
+      "-1": 1914,
+      "0": 3041,
+      "1": 8798,
+      "2": 3692
+    },
+    "missing_label_policy": "Exclude rows using future_available only. The -2 value in unavailable rows is a sentinel, not a valid observed label."
+  },
+  "ordinal_prediction": {
+    "logit_dimension": 4,
+    "thresholds": [-2, -1, 0, 1],
+    "target_definition": "I(y > threshold)",
+    "binary_decision": "logit >= 0",
+    "class_decoding": "-2 + number of nonnegative logits",
+    "monotonicity_audit": "Report the fraction of eligible rows whose logits violate non-increasing order across ascending thresholds. Do not silently repair logits."
+  },
+  "metrics": {
+    "pooled_oof": [
+      "accuracy",
+      "macro_f1",
+      "balanced_accuracy",
+      "weighted_f1",
+      "ordinal_mae",
+      "per_class_precision_recall_f1_support",
+      "confusion_matrix"
+    ],
+    "per_threshold": [
+      "accuracy",
+      "balanced_accuracy",
+      "f1",
+      "roc_auc",
+      "average_precision"
+    ],
+    "fold_level": "Report the same principal classification metrics separately for each OOF fold.",
+    "class_order": [-2, -1, 0, 1, 2],
+    "rare_class_policy": "Always report per-class support. Interpret metrics for class -2 cautiously because its support is 13."
+  },
+  "comparison": {
+    "contrast": "QR_FUTURE minus R_FUTURE",
+    "unit_of_resampling": "dialogue_id",
+    "bootstrap_replicates": 5000,
+    "bootstrap_seed": 42,
+    "interval": "95% percentile confidence interval",
+    "metrics": [
+      "macro_f1",
+      "balanced_accuracy",
+      "ordinal_mae"
+    ],
+    "interpretation": "Secondary auxiliary comparison. Do not use this evaluation to overturn the S6-A retrieval primary result."
+  },
+  "prohibitions": [
+    "No model retraining",
+    "No threshold tuning",
+    "No development or test payload access",
+    "No modification of frozen S5 or S6-A artifacts",
+    "No treating unavailable sentinel labels as observed outcomes"
+  ],
+  "planned_outputs": [
+    "results/phase_s6/s6b_oof_future_prediction_metrics_v1.json",
+    "results/phase_s6/s6b_oof_future_prediction_metrics_v1.txt",
+    "results/phase_s6/s6b_oof_future_prediction_predictions_v1.npz"
+  ]
+}

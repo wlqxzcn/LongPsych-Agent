@@ -1,0 +1,1 @@
+418de5881c85be59254f4280ab8c291e011558de7e32ada778c0e05f2045358e  protocols/fsar_s2b2_full_embedding_protocol_v1.json

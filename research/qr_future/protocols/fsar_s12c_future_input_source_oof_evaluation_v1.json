@@ -1,0 +1,156 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S12C_FUTURE_INPUT_SOURCE_OOF_EVALUATION",
+  "artifact": "FSAR S12C Future Input Source OOF Evaluation V1",
+  "status": "FROZEN_BEFORE_METRIC_REVEAL",
+  "scope": "TRAIN_INTERNAL_OOF_ONLY",
+  "interpretation": "EXPLORATORY_INPUT_SOURCE_ABLATION_NO_CONFIRMATORY_GATE",
+  "evaluation_script": "src/evaluation/s12c_future_input_source_oof_evaluation.py",
+  "evaluation_script_sha256": "32aaedbd2fdece7e2fa1b6be90cc2f9ccebdd71a1a4e1fee3268ee8100f7b46b",
+  "legacy_metric_dependency": {
+    "path": "src/evaluation/s7_beta8_oof_evaluation.py",
+    "sha256": "dacbc93f025dfeb2e90f79919fd7ae91899ea58f4a906fb5d7ebe34606b81536"
+  },
+  "inputs": {
+    "master": {
+      "path": "data/supervision/fsar_s3/fsar_s3a_ranking_future_master_index_v1.jsonl",
+      "sha256": "d9196a5ea11a9433c0550db6ebcfce76a6965ebec14ae9e3fb6660cc1e6ab3be"
+    },
+    "fold": {
+      "path": "data/supervision/fsar_s3/fsar_s3b_internal_fold_assignment_v1.npy",
+      "sha256": "a4f129fb6b5e5d23aad4215d261d33e4be2dc1ff34f8dcb7e4f0c92d430bcdf9"
+    },
+    "future_mask": {
+      "path": "data/supervision/fsar_s3/fsar_s3c0_future_loss_eligibility_by_fold_v1.npz",
+      "sha256": "84ee56cf9549a9842dc717bfd6a8a3cad41c457298356a8796dbfbe7a9b85a3d"
+    },
+    "reservoir": {
+      "path": "cache/hard_negatives/fsar_train_dense_top100_reservoir_v1.npz",
+      "sha256": "e122dfe8f2c4eb8902068090d5852c79317641ea850720d58e4d4f4133474ab0"
+    },
+    "model_code": {
+      "path": "src/models/s12c_future_input_source_models.py",
+      "sha256": "67ff3cc1a7af8248aef45ebe01e85b3b98d6000257aefe40c9f68250eb8d6c36"
+    },
+    "r_only_oof": {
+      "path": "results/phase_s12c/future_input_source_v1/oof/s12c_beta8_r_only_oof_scores_v1.npz",
+      "sha256": "c2b9cabf149f7517cc6457f81fe0a8defa6b74ec43b83a5b22725213f24732ac"
+    },
+    "q_only_oof": {
+      "path": "results/phase_s12c/future_input_source_v1/oof/s12c_beta8_q_only_oof_scores_v1.npz",
+      "sha256": "34a71e4ec56063855728c928118913676f3f76cd6feeee8a8cf5bb18a401f75f"
+    },
+    "qr_add_oof": {
+      "path": "results/phase_s12c/future_input_source_v1/oof/s12c_beta8_qr_add_oof_scores_v1.npz",
+      "sha256": "6e304f2e5666b71648890af8a1bf45c8378d56729877a0aade026bae7d669f07"
+    },
+    "r_only_summary": {
+      "path": "results/phase_s12c/future_input_source_v1/summaries/s12c_beta8_r_only_training_summary_v1.json",
+      "sha256": "1889ce7dd0ccaee94c2d6fdc14dbec14c4a36c9485e18b84f8f2ca2faadcb140"
+    },
+    "q_only_summary": {
+      "path": "results/phase_s12c/future_input_source_v1/summaries/s12c_beta8_q_only_training_summary_v1.json",
+      "sha256": "71fa5f755be92477d3cd1467315923edfd28dcca01f95194e1c1c6f5698a1c93"
+    },
+    "qr_add_summary": {
+      "path": "results/phase_s12c/future_input_source_v1/summaries/s12c_beta8_qr_add_training_summary_v1.json",
+      "sha256": "80f3ae74ec1df6e1ae461568f921cd2cdff594e951bebb01f7fab3663b07c714"
+    },
+    "rank_only_oof": {
+      "path": "results/phase_s4/s4_rank_only_oof_scores_v1.npz",
+      "sha256": "fbcb8947ebf72b1364e535a15872ac3415fdb56959b5f00091c464a75fc092f4"
+    }
+  },
+  "data": {
+    "ranking_rows": 62889,
+    "dialogues": 1666,
+    "future_eligible_rows": 17458,
+    "future_eligible_dialogues": 1653,
+    "candidate_count": 101,
+    "folds": 5,
+    "split_unit": "dialogue"
+  },
+  "conditions": {
+    "R_ONLY": "[z_r, zeros]",
+    "Q_ONLY": "[zeros, z_q]",
+    "QR_ADD": "[z_r, z_q]"
+  },
+  "future_state": {
+    "classes": [
+      -2,
+      -1,
+      0,
+      1,
+      2
+    ],
+    "thresholds": [
+      -2,
+      -1,
+      0,
+      1
+    ],
+    "classification_metrics": [
+      "accuracy",
+      "macro_f1",
+      "balanced_accuracy",
+      "weighted_f1",
+      "ordinal_mae"
+    ],
+    "probability_metrics": [
+      "brier",
+      "ordinal_logloss",
+      "expected_state_mae",
+      "threshold_accuracy"
+    ],
+    "primary_contrast": "QR_ADD - Q_ONLY",
+    "bootstrap": {
+      "unit": "dialogue_id",
+      "paired": true,
+      "replicates": 5000,
+      "seed": 43,
+      "ci": 0.95,
+      "method": "PERCENTILE"
+    }
+  },
+  "fold_aware_prevalence_baseline": {
+    "training_rows": "future_available AND future_loss_eligible_by_fold[f] AND fold_id != f",
+    "estimator": "five-class empirical prevalence with add-one Laplace smoothing",
+    "alpha_per_class": 1.0,
+    "validation_labels_used": false
+  },
+  "retrieval": {
+    "conditions": [
+      "DENSE_101",
+      "RANK_ONLY",
+      "R_ONLY",
+      "Q_ONLY",
+      "QR_ADD"
+    ],
+    "metrics": [
+      "MRR",
+      "R@1",
+      "R@5",
+      "R@10",
+      "R@20"
+    ],
+    "primary_metric": "DIALOGUE_MACRO_MRR",
+    "rank_definition": "1 + COUNT(negative_score > gold_score)",
+    "tie_policy": "STRICT_GREATER",
+    "bootstrap": {
+      "unit": "dialogue_id",
+      "paired": true,
+      "replicates": 5000,
+      "seed": 42,
+      "ci": 0.95,
+      "method": "PERCENTILE"
+    },
+    "role": "SECONDARY"
+  },
+  "dev_payload_used": false,
+  "test_payload_used": false,
+  "training": false,
+  "new_inference": false,
+  "no_posthoc_success_gate": true,
+  "multiple_comparison_adjustment": "NONE; exploratory contrasts",
+  "overwrite_policy": "REFUSE_IF_PROTOCOL_OR_OUTPUT_EXISTS"
+}

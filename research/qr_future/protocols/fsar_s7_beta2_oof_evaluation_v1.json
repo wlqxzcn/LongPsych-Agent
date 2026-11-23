@@ -1,0 +1,171 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S7-BETA2-EVALUATION",
+  "artifact": "FSAR S7 beta=2 Unified OOF Evaluation Protocol V1",
+  "status": "FROZEN_BEFORE_S7_BETA2_METRIC_REVEAL",
+  "scope": "TRAIN_INTERNAL_OOF_ONLY",
+  "interpretation": "EXPLORATORY_BETA_SENSITIVITY_NO_CONFIRMATORY_GATE",
+  "evaluation_script": "src/evaluation/s7_beta2_oof_evaluation.py",
+  "evaluation_script_sha256": "f03c69865880dce8028829e02f5ab6cb12ac0dfa95a023989fbc337f720409e1",
+  "inputs": {
+    "master": {
+      "path": "data/supervision/fsar_s3/fsar_s3a_ranking_future_master_index_v1.jsonl",
+      "sha256": "d9196a5ea11a9433c0550db6ebcfce76a6965ebec14ae9e3fb6660cc1e6ab3be"
+    },
+    "fold": {
+      "path": "data/supervision/fsar_s3/fsar_s3b_internal_fold_assignment_v1.npy",
+      "sha256": "a4f129fb6b5e5d23aad4215d261d33e4be2dc1ff34f8dcb7e4f0c92d430bcdf9"
+    },
+    "future_mask": {
+      "path": "data/supervision/fsar_s3/fsar_s3c0_future_loss_eligibility_by_fold_v1.npz",
+      "sha256": "84ee56cf9549a9842dc717bfd6a8a3cad41c457298356a8796dbfbe7a9b85a3d"
+    },
+    "reservoir": {
+      "path": "cache/hard_negatives/fsar_train_dense_top100_reservoir_v1.npz",
+      "sha256": "e122dfe8f2c4eb8902068090d5852c79317641ea850720d58e4d4f4133474ab0"
+    },
+    "s4_oof": {
+      "path": "results/phase_s4/s4_rank_only_oof_scores_v1.npz",
+      "sha256": "fbcb8947ebf72b1364e535a15872ac3415fdb56959b5f00091c464a75fc092f4"
+    },
+    "s4_summary": {
+      "path": "results/phase_s4/s4_rank_only_training_summary_v1.json",
+      "sha256": "be30581e5804c9b7368ed3f23037f79dc78b53659e3ca9abde63a2e4387de6d0"
+    },
+    "s5_r_oof": {
+      "path": "results/phase_s5/s5_r_future_oof_scores_v1.npz",
+      "sha256": "12deca452373075b19b3699d037578c049d74cb7f49bdc88aebb36e42e9d4ecc"
+    },
+    "s5_r_summary": {
+      "path": "results/phase_s5/s5_r_future_training_summary_v1.json",
+      "sha256": "ea73d0b84fba2d9415aa23c8f98c800e47b41be1c00e430f0806ad93000edf4c"
+    },
+    "s5_qr_oof": {
+      "path": "results/phase_s5/s5_qr_future_oof_scores_v1.npz",
+      "sha256": "8928ebb960bc6eb821f7419e188b83bdd306be1dfcbf96764b35381f633ad376"
+    },
+    "s5_qr_summary": {
+      "path": "results/phase_s5/s5_qr_future_training_summary_v1.json",
+      "sha256": "95564e659e1f53694e7bfb72d39f6b5575420ef5bced6995bbaf10cc52f9fa0a"
+    },
+    "s7_protocol": {
+      "path": "protocols/fsar_s7_future_aux_beta_sensitivity_v1.json",
+      "sha256": "6f3924f74a1b3168ea6b75f7f2383ce41b0b2715c236b66ec53f38341edcb23d"
+    },
+    "s7_training_script": {
+      "path": "src/training/s7_train_future_aux_beta_sensitivity.py",
+      "sha256": "afbebfa650d5ada14b3e5ad23b7935c9a91c0d7fe561f50e3ede31f02dd9e9a7"
+    },
+    "s7_r_oof": {
+      "path": "results/phase_s7/beta_2/s7_beta2_r_future_oof_scores_v1.npz",
+      "sha256": "6d40261b5cd38ea852c7332b00fdd5c58a3dfb169b022038fb2bd478323d0ce2"
+    },
+    "s7_r_summary": {
+      "path": "results/phase_s7/beta_2/s7_beta2_r_future_training_summary_v1.json",
+      "sha256": "10dee883958ae467d76a8c14002c23679bda38896aae9eaa5eb30cf3c6ee78c4"
+    },
+    "s7_qr_oof": {
+      "path": "results/phase_s7/beta_2/s7_beta2_qr_future_oof_scores_v1.npz",
+      "sha256": "39eb785c05b25295bb35f6651c5544c8bd5bd321c2d0209332218e9f698dc0f4"
+    },
+    "s7_qr_summary": {
+      "path": "results/phase_s7/beta_2/s7_beta2_qr_future_training_summary_v1.json",
+      "sha256": "109b5b24c5a93000623afd339c1040dc7d896a8412759150330ecbf2d5ea80cb"
+    },
+    "s6a_protocol": {
+      "path": "protocols/fsar_s6a_oof_retrieval_reveal_protocol_v1.json",
+      "sha256": "d0cd870354e2c4285bf9bbc0a5c26fea016853293d9364db935ab5883b552e7c"
+    },
+    "s6a_script": {
+      "path": "src/retrieval/s6a_oof_retrieval_reveal.py",
+      "sha256": "c67e08a1c32d6a9319b0263938304eea4d0046d740f549c7574bbedfb75da590"
+    },
+    "s6b_protocol": {
+      "path": "protocols/fsar_s6b_oof_future_prediction_evaluation_v1.json",
+      "sha256": "72928cc629b7f32034628f26022af61903c1ee00a7e58e73624a38c7f73d9d58"
+    },
+    "s6b_script": {
+      "path": "src/retrieval/s6b_oof_future_prediction_evaluation.py",
+      "sha256": "1c5823ccb8e91ef0900e081de458492edf8fa8480206a73f7db3215b562f1ee1"
+    }
+  },
+  "retrieval": {
+    "query_rows": 62889,
+    "dialogues": 1666,
+    "candidate_count": 101,
+    "candidate_set": "1_GOLD_PLUS_FROZEN_DENSE_TOP100_NON_GOLD",
+    "conditions": [
+      "DENSE_101",
+      "RANK_ONLY",
+      "R_FUTURE_BETA1",
+      "QR_FUTURE_BETA1",
+      "R_FUTURE_BETA2",
+      "QR_FUTURE_BETA2"
+    ],
+    "rank_definition": "1 + COUNT(candidate_score > gold_score)",
+    "tie_policy": "STRICT_GREATER",
+    "primary_metric": "DIALOGUE_MACRO_MRR",
+    "secondary_metrics": [
+      "R@1",
+      "R@5",
+      "R@10",
+      "R@20"
+    ],
+    "bootstrap_unit": "dialogue_id",
+    "bootstrap_paired": true,
+    "bootstrap_replicates": 5000,
+    "bootstrap_seed": 42,
+    "ci": 0.95,
+    "method": "PERCENTILE",
+    "primary_exploratory_contrast": "S7_BETA2_QR_MINUS_S5_QR",
+    "other_contrasts_are_exploratory": true
+  },
+  "future_state": {
+    "eligible_rows": 17458,
+    "eligible_dialogues": 1653,
+    "classes": [
+      -2,
+      -1,
+      0,
+      1,
+      2
+    ],
+    "thresholds": [
+      -2,
+      -1,
+      0,
+      1
+    ],
+    "classification_metrics": [
+      "accuracy",
+      "macro_f1",
+      "balanced_accuracy",
+      "weighted_f1",
+      "ordinal_mae",
+      "per_class_precision_recall_f1",
+      "per_threshold_accuracy_balanced_accuracy_f1_roc_auc_average_precision"
+    ],
+    "probability_metrics": [
+      "brier",
+      "ordinal_logloss",
+      "expected_state_mae",
+      "threshold_accuracy"
+    ],
+    "bootstrap_unit": "dialogue_id",
+    "bootstrap_paired": true,
+    "bootstrap_replicates": 5000,
+    "bootstrap_seed": 43,
+    "ci": 0.95,
+    "method": "PERCENTILE",
+    "all_contrasts_exploratory": true
+  },
+  "outputs": [
+    "results/phase_s7/beta_2/evaluation_v1/s7_beta2_oof_evaluation_summary_v1.json",
+    "results/phase_s7/beta_2/evaluation_v1/s7_beta2_oof_evaluation_arrays_v1.npz",
+    "results/phase_s7/beta_2/evaluation_v1/s7_beta2_oof_evaluation_report_v1.txt"
+  ],
+  "dev_payload_used": false,
+  "test_payload_used": false,
+  "no_posthoc_success_gate": true,
+  "overwrite_policy": "REFUSE_IF_PROTOCOL_OR_OUTPUT_DIRECTORY_EXISTS"
+}

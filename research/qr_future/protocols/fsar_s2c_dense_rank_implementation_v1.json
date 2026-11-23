@@ -1,0 +1,37 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S2-C",
+  "artifact": "FSAR S2-C Dense Gold-Rank Implementation V1",
+  "status": "FROZEN_BEFORE_EXECUTION",
+
+  "computation_device": "CUDA",
+
+  "query_batch_size": 1024,
+  "candidate_chunk_size": 16384,
+
+  "query_batch_size_role": "COMPUTATIONAL_ONLY",
+  "candidate_chunk_size_role": "COMPUTATIONAL_ONLY",
+
+  "similarity_dtype": "float32",
+
+  "tf32_matmul": false,
+  "float32_matmul_precision": "highest",
+
+  "gold_similarity": "DOT_PRODUCT_OF_QUERY_AND_GOLD_RESPONSE_EMBEDDINGS",
+
+  "gold_self_score_policy": "FORCE_CHUNK_GOLD_CELL_TO_PRECOMPUTED_GOLD_SCORE_BEFORE_RANK_COMPARISON",
+
+  "primary_rank": "1 + COUNT(similarity > gold_similarity)",
+
+  "tie_count": "COUNT(similarity == gold_similarity)",
+  "tie_comparison": "EXACT_FLOAT32_EQUALITY_AFTER_GOLD_SELF_SCORE_ALIGNMENT",
+
+  "rank_quantile_method": "higher",
+
+  "full_similarity_matrix_saved": false,
+
+  "formal_outputs_written_only_after_complete_success": true,
+
+  "dev_payload_used": false,
+  "test_payload_used": false
+}

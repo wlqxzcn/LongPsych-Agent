@@ -1,0 +1,47 @@
+{
+  "artifact": "FSAR S10 Global-vs-Local Rank Decomposition V1",
+  "status": "FROZEN_BEFORE_ANALYSIS",
+  "scope": "EXPLORATORY_POSTHOC_DEV_DIAGNOSTIC_ONLY",
+  "purpose": "Decompose each frozen S8 full-library Gold rank into S9 local Top-100 rank plus the count of outside-Top-100 candidates ranked ahead of Gold.",
+  "input_sha256": {
+    "s8_protocol": "a7ed4f3c4d0340e3a25f137cff295050c7926b63f1c9eeb3bcefb38f227ddc72",
+    "s9_protocol": "c22dc589014ec08ab65b545729535b6db92343c3c585d6c55aee16f399b445cf",
+    "s8_summary": "9be7777c7899c93a8a23624332759da60d7e16ded91a5ea471f1c310e64e0055",
+    "s9_summary": "7ae175438de7144f761ec3038a889d389b961e72bd84cc82a6938ae7a76e82b2",
+    "s8_predictions": "a8dd72e0c2d7f2e0d254dcc5cd0ebd9d80083d3eb1912c69d2f5967d922ddb64",
+    "s9_predictions": "4da11d3427dba1da27ff16ab847303ddc155c8937ab7c200f7d98cb2e2820a73",
+    "s8_script": "4561d0233d871ef498d36c539bfa2d389764f1967ecaa127ef10a4340f5cac49",
+    "s9_script": "84f35aa77759041e6f84d9b8e6ba486fdec255edb618a3cd81c01676f9f3ffba",
+    "s10_script": "ba7bbc2a7410df1d278322b78d6528a2027460c44a66c0a3180a7479e44ecc84"
+  },
+  "alignment_audit": {
+    "dev_rows": 9070,
+    "dev_dialogues": 239,
+    "dev_long20_rows": 4375,
+    "dev_long20_dialogues": 207,
+    "candidate_count_per_query": 100,
+    "sample_id_alignment": true,
+    "dialogue_id_alignment": true,
+    "gold_identity_alignment": true,
+    "gold_identity_excluded_from_top100": true,
+    "rank_subset_consistency": true
+  },
+  "models": [
+    "DENSE_BGE",
+    "RANK_ONLY",
+    "R_FUTURE_BETA1",
+    "R_FUTURE_BETA2",
+    "R_FUTURE_BETA4",
+    "R_FUTURE_BETA8",
+    "QR_FUTURE_BETA1",
+    "QR_FUTURE_BETA2",
+    "QR_FUTURE_BETA4",
+    "QR_FUTURE_BETA8"
+  ],
+  "decomposition": "outside_top100_ahead_count = S8 full_library_rank - S9 Top100_plus_injected_Gold_rank",
+  "interpretation": "Descriptive post-hoc diagnostic, not a confirmatory test and not a new performance claim.",
+  "test_payload_used": false,
+  "model_inference_performed": false,
+  "training_artifacts_modified": false,
+  "checkpoints_modified": false
+}

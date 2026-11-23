@@ -1,0 +1,52 @@
+{
+  "project": "夏",
+  "subproject": "Second Innovation Point",
+  "internal_code": "FSAR",
+  "engineering_status": "NEW_INDEPENDENT_PROJECT",
+
+  "research_question": "Can observational next-user-state supervision improve psychological response retrieval when used only as a training-time auxiliary signal?",
+
+  "primary_task": "fixed-pool psychological response retrieval",
+
+  "primary_baseline": "Rank-only",
+  "diagnostic_control": "Rank + Response-only Future supervision",
+  "proposed_condition": "Rank + Query-Response Future supervision",
+
+  "primary_comparison": "Rank+QR-Future versus Rank-only",
+  "mechanism_comparison": "Rank+QR-Future versus Rank+R-Future",
+
+  "future_state_role": "TRAINING_TIME_AUXILIARY_SUPERVISION_ONLY",
+
+  "future_state_at_inference": false,
+  "future_state_for_negative_candidates": false,
+  "counterfactual_future_labels": false,
+
+  "observational_future_labels_only": true,
+
+  "initial_encoder": "BAAI/bge-large-zh-v1.5",
+  "encoder_initially_frozen": true,
+
+  "old_pinc_r_code_imported": false,
+  "old_cgpr_code_imported": false,
+  "old_reranker_checkpoint_imported": false,
+  "old_future_state_prior_imported": false,
+
+  "dev_policy": "DO_NOT_USE_BEFORE_TRAIN_INTERNAL_DEVELOPMENT_FREEZE",
+  "test_policy": "ONE_SHOT_AFTER_METHOD_FREEZE",
+
+  "posthoc_rescue_after_formal_result": false,
+
+  "phase_order": [
+    "S0_PROTOCOL_FREEZE",
+    "S1_DATA_AND_LEAKAGE_AUDIT",
+    "S2_DENSE_HARD_NEGATIVE_CONSTRUCTION",
+    "S3_RANKING_DATASET_CONSTRUCTION",
+    "S4_RANK_ONLY_FEASIBILITY",
+    "S5_FUTURE_STATE_AUXILIARY_LEARNING",
+    "S6_TRAIN_INTERNAL_MODEL_SELECTION",
+    "S7_ONE_SHOT_DEV",
+    "S8_METHOD_FREEZE",
+    "S9_ONE_SHOT_TEST",
+    "S10_ORCA_INTEGRATION"
+  ]
+}

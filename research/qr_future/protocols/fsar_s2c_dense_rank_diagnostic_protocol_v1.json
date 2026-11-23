@@ -1,0 +1,57 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S2-C",
+  "artifact": "FSAR S2-C TRAIN Dense Gold-Rank Diagnostic Protocol V1",
+  "status": "FROZEN_BEFORE_RANK_DIAGNOSTIC",
+
+  "scope": "TRAIN_ONLY",
+
+  "query_embedding": "cache/embeddings/fsar_train_queries_bge_v1.npy",
+  "response_embedding": "cache/embeddings/fsar_train_unique_responses_bge_v1.npy",
+
+  "query_index": "cache/embeddings/fsar_train_queries_bge_index_v1.jsonl",
+  "response_index": "cache/embeddings/fsar_train_unique_responses_bge_index_v1.jsonl",
+
+  "expected_query_rows": 62889,
+  "expected_response_rows": 61502,
+  "embedding_dimension": 1024,
+
+  "similarity": "COSINE_AS_DOT_PRODUCT_OF_UNIT_NORMALIZED_EMBEDDINGS",
+
+  "gold_rank_definition": {
+    "primary_rank": "1 + number_of_candidates_with_similarity_strictly_greater_than_gold_similarity",
+    "tie_diagnostics": true,
+    "gold_candidate_included_in_candidate_pool": true
+  },
+
+  "reported_recall_cutoffs": [1, 5, 10, 20, 50, 100, 200, 500, 1000],
+
+  "reported_rank_quantiles": [
+    0.25,
+    0.50,
+    0.75,
+    0.90,
+    0.95,
+    0.99
+  ],
+
+  "gold_similarity_summary": true,
+
+  "computation": {
+    "exact_rank": true,
+    "query_batching": true,
+    "candidate_chunking": true,
+    "full_similarity_matrix_saved": false
+  },
+
+  "hard_negative_selection_performed": false,
+  "hard_negative_depth_frozen": false,
+  "reranker_training_performed": false,
+
+  "future_state_supervision_used": false,
+
+  "dev_payload_used": false,
+  "test_payload_used": false,
+
+  "interpretation": "DESCRIPTIVE_TRAIN_ONLY_DIAGNOSTIC_FOR_HARD_NEGATIVE_DESIGN"
+}

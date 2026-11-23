@@ -1,0 +1,32 @@
+{
+  "artifact": "FSAR S2-B Runtime Environment V1",
+  "status": "FROZEN_BEFORE_FORMAL_ENCODING",
+  "python": "3.12.3",
+  "python_executable": "/root/miniconda3/envs/fsar/bin/python",
+  "torch": "2.8.0+cu128",
+  "torch_cuda": "12.8",
+  "numpy": "2.3.2",
+  "scipy": "1.15.1",
+  "scikit_learn": "1.6.1",
+  "transformers": "4.48.3",
+  "tokenizers": "0.21.0",
+  "huggingface_hub": "0.28.1",
+  "sentence_transformers": "3.4.1",
+  "cuda_available": true,
+  "cuda_device_count": 1,
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "historical_model_save_versions": {
+    "sentence_transformers": "2.2.2",
+    "transformers": "4.28.1",
+    "pytorch": "1.13.0+cu117"
+  },
+  "encoding_policy": {
+    "model_weights": "frozen local BGE",
+    "max_seq_length": 512,
+    "embedding_dimension": 1024,
+    "pooling_expected": "CLS",
+    "normalize_expected": true,
+    "query_prefix": null,
+    "response_prefix": null
+  }
+}

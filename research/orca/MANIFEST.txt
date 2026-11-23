@@ -1,0 +1,42 @@
+ORCA GTE+BGE complete paper code
+
+Required data/method files:
+- src/build_psydt_final_dataset.py
+- src/manifold_decoupler.py
+- src/dual_track_index.py
+- src/orca_source_lexicons.py
+- src/paper_experiment_utils.py
+
+Paper experiment entry points:
+- src/run_full_experiments_local.py
+- src/run_competing_methods_local.py
+- src/run_orca_rrf_fusion_local.py
+- src/run_supplementary_experiments_local.py
+- src/orca_bigdata_final_safe.py
+- src/run_runtime_repeats.py
+- src/run_fixed_k_source_ablation_local.py
+- src/run_user_source_ablation_repeated.py
+- src/run_mean_direction_baselines.py
+- src/run_test_mean_direction_ablation.py
+- src/run_score_decomposition.py
+- src/run_cross_pool_paired_significance.py
+- src/run_source_stability_enhanced.py
+- src/export_dense_orca_qualitative_cases.py
+- src/run_annomi_fivefold.py
+
+Command wrappers:
+- commands/01_build_psydt_benchmark.sh
+- commands/02_tables_2_3_main.sh
+- commands/03_table_4_competing_methods.sh
+- commands/04_table_5_rrf.sh
+- commands/05_table_6_paired_significance.sh
+- commands/06_table_7_candidate_scaling.sh
+- commands/07_table_8_runtime_repeats.sh
+- commands/08_table_9_user_sources.sh
+- commands/09_table_10_mean_direction.sh
+- commands/10_table_11_score_decomposition.sh
+- commands/11_table_12_cross_pool.sh
+- commands/12_table_13_source_stability.sh
+- commands/13_table_14_qualitative.sh
+- commands/14_tables_15_17_annomi.sh
+- commands/run_all_paper_experiments.sh

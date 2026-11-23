@@ -1,0 +1,122 @@
+{
+  "project": "PsychResponse_FSAR",
+  "artifact": "FSAR S12C Future Input Source Ablation Protocol V1",
+  "phase": "S12C_FUTURE_INPUT_SOURCE_ABLATION",
+  "status": "FROZEN_BEFORE_TRAINING",
+  "scope": "TRAIN_INTERNAL_5FOLD_OOF_ONLY",
+  "purpose": "Disentangle future-state predictive information from current query, gold response, and their joint concatenated representation.",
+  "training_script": "src/training/s12c_train_future_input_source_beta8_5fold.py",
+  "training_script_sha256": "6d8eafdc091fff2419f809e737ec3bcf5e8076b481a0c253476a1c95f2ac4e25",
+  "source_sha256": {
+    "query_embedding": "18aa1ed637bef3980775c10d96d1cde6112863b0c5761e2e69fb7ab89c981005",
+    "response_embedding": "7a4ee8d462adce73174c853bf21b758132f5243020fa6253b1c01a99973bc96f",
+    "master": "d9196a5ea11a9433c0550db6ebcfce76a6965ebec14ae9e3fb6660cc1e6ab3be",
+    "fold": "a4f129fb6b5e5d23aad4215d261d33e4be2dc1ff34f8dcb7e4f0c92d430bcdf9",
+    "future_mask": "84ee56cf9549a9842dc717bfd6a8a3cad41c457298356a8796dbfbe7a9b85a3d",
+    "reservoir": "e122dfe8f2c4eb8902068090d5852c79317641ea850720d58e4d4f4133474ab0",
+    "model": "67ff3cc1a7af8248aef45ebe01e85b3b98d6000257aefe40c9f68250eb8d6c36",
+    "base_model": "be4db64f5203830e742d9bc078900d106769b4b6380a1de95ca77c542521f99c",
+    "audit": "f4e8dd75f233db97b15fbb073162481b49fc6ac67e6a539bbbf8633074de9d83",
+    "architecture_protocol": "2e954b30aa028b997d0528fb3657dbe634e8c0043aa0c1c7bda4e819a329bce1",
+    "training_protocol": "e30ca60f61d12ac0b291a473a656eed326b24cee1d324f06c21623bfc4d0d51e",
+    "s5_protocol": "33dd9bfd795300a73e1450a9278d06ae75809a992f504eaffe96fc28f97e0882",
+    "s7_protocol": "6f3924f74a1b3168ea6b75f7f2383ce41b0b2715c236b66ec53f38341edcb23d",
+    "s4_summary": "be30581e5804c9b7368ed3f23037f79dc78b53659e3ca9abde63a2e4387de6d0",
+    "s4_oof": "fbcb8947ebf72b1364e535a15872ac3415fdb56959b5f00091c464a75fc092f4"
+  },
+  "ranking_architecture": {
+    "type": "FULL_MATCHED",
+    "features": [
+      "z_q",
+      "z_r",
+      "abs(z_q-z_r)",
+      "z_q*z_r"
+    ],
+    "initial_ranking_function": "-L1(z_q,z_r)/sqrt(1024)"
+  },
+  "future_head": {
+    "input_dimension": 2048,
+    "output_dimension": 4,
+    "ordinal_thresholds": [
+      -2,
+      -1,
+      0,
+      1
+    ],
+    "parameter_count": 8196
+  },
+  "conditions": {
+    "R_ONLY": {
+      "model_class": "ROnlyFullMatchedModel",
+      "future_input": "[z_r; zeros_like(z_r)]"
+    },
+    "Q_ONLY": {
+      "model_class": "QOnlyFullMatchedModel",
+      "future_input": "[zeros_like(z_q); z_q]"
+    },
+    "QR_ADD": {
+      "model_class": "QRAddFullMatchedModel",
+      "future_input": "[z_r; z_q]",
+      "operation": "CONCATENATION_NOT_ELEMENTWISE_ADDITION"
+    }
+  },
+  "initialization": {
+    "seed": 42,
+    "identical_initialization": true,
+    "identical_parameter_count": true,
+    "parameter_count_per_model": 2109444,
+    "initial_ranking_function_matched": true
+  },
+  "data": {
+    "ranking_rows": 62889,
+    "unique_responses": 61502,
+    "candidate_count": 101,
+    "future_available_rows": 17458,
+    "dialogues": 1666,
+    "future_available_dialogues": 1653,
+    "split_unit": "dialogue_id",
+    "folds": 5
+  },
+  "future_supervision": {
+    "gold_response_only": true,
+    "negative_future_labels": false,
+    "fold_specific_eligibility_mask": true,
+    "loss": "MEAN_MASKED_ORDINAL_BCE",
+    "denominator": "FULL_QUERY_BATCH"
+  },
+  "training": {
+    "beta": 8.0,
+    "optimizer": "Adam",
+    "learning_rate": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0,
+    "batch_size": 128,
+    "max_epochs": 20,
+    "model_seed": 42,
+    "epoch_shuffle_seed": "42000 + fold_id * 100 + epoch_id",
+    "mixed_precision": false,
+    "tf32": false
+  },
+  "checkpoint_selection": {
+    "metric": "VALIDATION_RANKING_CROSS_ENTROPY",
+    "direction": "MINIMIZE",
+    "tie_break": "EARLIEST_EPOCH",
+    "future_metrics_used": false
+  },
+  "evaluation": {
+    "oof_candidate_scores_saved": true,
+    "oof_future_logits_saved": true,
+    "retrieval_metrics_computed_during_training": false,
+    "future_metrics_computed_during_training": false,
+    "dev_payload_used": false,
+    "test_payload_used": false,
+    "interpretation": "EXPLORATORY_COMPONENT_ABLATION"
+  },
+  "output_root": "results/phase_s12c/future_input_source_v1",
+  "overwrite_existing": false,
+  "atomic_promotion": true
+}

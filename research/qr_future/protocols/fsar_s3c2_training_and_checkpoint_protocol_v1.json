@@ -1,0 +1,88 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S3-C2",
+  "artifact": "FSAR S3-C2 Training and Checkpoint Protocol V1",
+  "status": "FROZEN_BEFORE_ANY_PARAMETER_UPDATE",
+
+  "scope": "TRAIN_INTERNAL_5FOLD_ONLY",
+
+  "conditions": [
+    "RANK_ONLY",
+    "R_FUTURE",
+    "QR_FUTURE"
+  ],
+
+  "candidate_set": {
+    "gold": 1,
+    "hard_negatives": 100,
+    "candidates_per_query": 101,
+    "negative_sampling": "NONE",
+    "candidate_order": "GOLD_FIRST_THEN_FROZEN_TOP100"
+  },
+
+  "optimizer": {
+    "name": "Adam",
+    "learning_rate": 0.0001,
+    "betas": [0.9, 0.999],
+    "eps": 1e-8,
+    "weight_decay": 0.0
+  },
+
+  "training": {
+    "batch_size_queries": 128,
+    "gradient_accumulation": 1,
+    "max_epochs": 20,
+    "drop_last": false,
+    "mixed_precision": false,
+    "lr_scheduler": null,
+    "gradient_clipping": null
+  },
+
+  "randomness": {
+    "model_initialization_seed": 42,
+    "seed_search": false,
+    "same_initialization_seed_across_conditions": true,
+    "same_query_order_within_fold_across_conditions": true,
+    "epoch_shuffle_seed_formula": "42000 + fold_id * 100 + epoch_id"
+  },
+
+  "future_supervision": {
+    "RANK_ONLY": false,
+    "R_FUTURE": true,
+    "QR_FUTURE": true,
+    "fold_specific_response_identity_mask": true,
+    "future_loss_on_gold_pair_only": true,
+    "future_loss_on_negatives": false,
+    "future_oversampling": false,
+    "future_class_weight": false,
+    "beta": null
+  },
+
+  "checkpoint_selection": {
+    "eligible_epochs": [1, 20],
+    "metric": "VALIDATION_RANKING_CROSS_ENTROPY",
+    "direction": "MINIMIZE",
+    "future_validation_loss_used": false,
+    "retrieval_metric_used_for_checkpoint_selection": false,
+    "epoch_zero_eligible": false,
+    "tie_break": "EARLIEST_EPOCH"
+  },
+
+  "validation": {
+    "candidate_set": "GOLD_INJECTED_PLUS_FROZEN_TOP100_NON_GOLD",
+    "purpose": "INTERNAL_MODEL_SELECTION_AND_RERANKER_DISCRIMINATION",
+    "not_interpreted_as_end_to_end_first_stage_recall": true
+  },
+
+  "numerics": {
+    "dtype": "float32",
+    "tf32": false,
+    "deterministic_seed": 42
+  },
+
+  "hyperparameter_search": false,
+  "dev_payload_used": false,
+  "test_payload_used": false,
+
+  "formal_training_started": false
+}

@@ -1,0 +1,14 @@
+{
+  "project": "PsychResponse_FSAR",
+  "project_scope": "夏项目第二创新点",
+  "python_version": "3.12.3",
+  "python_executable": "/root/miniconda3/envs/fsar/bin/python",
+  "platform": "Linux-5.15.0-97-generic-x86_64-with-glibc2.35",
+  "hostname": "autodl-container-2fa646b3c3-a18cd48e",
+  "conda_env": "fsar",
+  "nvidia_smi": "NVIDIA GeForce RTX 4090, 24564 MiB, 580.76.05",
+  "torch_version": "2.8.0+cu128",
+  "torch_cuda_version": "12.8",
+  "cuda_available": true,
+  "gpu_name": "NVIDIA GeForce RTX 4090"
+}

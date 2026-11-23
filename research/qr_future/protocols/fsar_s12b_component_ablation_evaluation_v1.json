@@ -1,0 +1,165 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S12B_COMPONENT_ABLATION_OOF_EVALUATION",
+  "artifact": "FSAR S12B Four-Model Component Ablation Evaluation V1",
+  "status": "FROZEN_BEFORE_S12B_COMPONENT_METRIC_REVEAL",
+  "scope": "TRAIN_INTERNAL_OOF_ONLY",
+  "interpretation": "EXPLORATORY_COMPONENT_ABLATION_NO_CONFIRMATORY_GATE",
+  "evaluation_script": "src/evaluation/s12b_component_ablation_oof_evaluation.py",
+  "evaluation_script_sha256": "5b9ed7d03f3ad0536893cbf818c6cf427ef41482db57b48b40078de633204706",
+  "inputs": {
+    "master": {
+      "path": "data/supervision/fsar_s3/fsar_s3a_ranking_future_master_index_v1.jsonl",
+      "sha256": "d9196a5ea11a9433c0550db6ebcfce76a6965ebec14ae9e3fb6660cc1e6ab3be"
+    },
+    "fold": {
+      "path": "data/supervision/fsar_s3/fsar_s3b_internal_fold_assignment_v1.npy",
+      "sha256": "a4f129fb6b5e5d23aad4215d261d33e4be2dc1ff34f8dcb7e4f0c92d430bcdf9"
+    },
+    "future_mask": {
+      "path": "data/supervision/fsar_s3/fsar_s3c0_future_loss_eligibility_by_fold_v1.npz",
+      "sha256": "84ee56cf9549a9842dc717bfd6a8a3cad41c457298356a8796dbfbe7a9b85a3d"
+    },
+    "reservoir": {
+      "path": "cache/hard_negatives/fsar_train_dense_top100_reservoir_v1.npz",
+      "sha256": "e122dfe8f2c4eb8902068090d5852c79317641ea850720d58e4d4f4133474ab0"
+    },
+    "s7_r_oof": {
+      "path": "results/phase_s7/beta_8/s7_beta8_r_future_oof_scores_v1.npz",
+      "sha256": "73a0fa73d43797ed0c28b1f3dfd30c82429da72fdf654fc69e8738d939f9543f"
+    },
+    "s7_r_summary": {
+      "path": "results/phase_s7/beta_8/s7_beta8_r_future_training_summary_v1.json",
+      "sha256": "92e06e2f09a95352af81cfc41bb88728f10457bc1f900d9bb17e97d4ee6235cf"
+    },
+    "s7_qr_oof": {
+      "path": "results/phase_s7/beta_8/s7_beta8_qr_future_oof_scores_v1.npz",
+      "sha256": "62bafd483fd939134e686f67ab71f7ce116c771d0d2bcb5f85e4b323b9b6d51e"
+    },
+    "s7_qr_summary": {
+      "path": "results/phase_s7/beta_8/s7_beta8_qr_future_training_summary_v1.json",
+      "sha256": "c5f061d7e0fef33ea1ecf4db6bbe150a885e2c891a59efb32f698a8dfff687ff"
+    },
+    "s12b_r_oof": {
+      "path": "results/phase_s12b/s12b_beta8_r_future_oof_scores_v1.npz",
+      "sha256": "7fa4e32c0678b7f9a102e7682b7cf75b3a756703cc7b702286abaaa21415e585"
+    },
+    "s12b_r_summary": {
+      "path": "results/phase_s12b/s12b_beta8_r_future_training_summary_v1.json",
+      "sha256": "893a275cd4b1e66579088565825282e1a42be7fe96dc45bda8e1b3dde46e0f95"
+    },
+    "s12b_qr_oof": {
+      "path": "results/phase_s12b/s12b_beta8_qr_future_oof_scores_v1.npz",
+      "sha256": "e82d6ac591285d362577f5e607d812b7f1b4f38d074ac00bf81372444a21988d"
+    },
+    "s12b_qr_summary": {
+      "path": "results/phase_s12b/s12b_beta8_qr_future_training_summary_v1.json",
+      "sha256": "c4a14d0d5da1a0baff2182a8c8ffce4a3f0d57c84c0e467f5ad74c7f80edac31"
+    },
+    "s7_protocol": {
+      "path": "protocols/fsar_s7_future_aux_beta_sensitivity_v1.json",
+      "sha256": "6f3924f74a1b3168ea6b75f7f2383ce41b0b2715c236b66ec53f38341edcb23d"
+    },
+    "s7_training_script": {
+      "path": "src/training/s7_train_future_aux_beta_sensitivity.py",
+      "sha256": "afbebfa650d5ada14b3e5ad23b7935c9a91c0d7fe561f50e3ede31f02dd9e9a7"
+    },
+    "s7_eval_script": {
+      "path": "src/evaluation/s7_beta8_oof_evaluation.py",
+      "sha256": "dacbc93f025dfeb2e90f79919fd7ae91899ea58f4a906fb5d7ebe34606b81536"
+    },
+    "s12b_model": {
+      "path": "src/models/s12b_fsar_ablation_models.py",
+      "sha256": "10878111132b0e9ec46032c4bcd3e613e6a0a0742b561776bee34a0dc6c8ca4f"
+    },
+    "s12b_protocol": {
+      "path": "protocols/fsar_s12b_no_product_ablation_v1.json",
+      "sha256": "b9edb00d1860e0acbe52d76db54fa5c343c79afec4f3bf5eb6444cca0649f974"
+    },
+    "s12b_training_script": {
+      "path": "src/training/s12b_train_no_product_ablation_beta8_5fold.py",
+      "sha256": "53a8dbf9c221d6727b0df5e496efa27e733d06937b0c6d3ea586a2859e7230f3"
+    }
+  },
+  "retrieval": {
+    "conditions": [
+      "S7_R",
+      "S7_QR",
+      "S12B_R",
+      "S12B_QR"
+    ],
+    "candidate_count": 101,
+    "rank_definition": "1 + COUNT(candidate_score > gold_score)",
+    "tie_policy": "STRICT_GREATER",
+    "primary_metric": "DIALOGUE_MACRO_MRR",
+    "metrics": [
+      "MRR",
+      "R@1",
+      "R@5",
+      "R@10",
+      "R@20"
+    ],
+    "bootstrap": {
+      "unit": "dialogue_id",
+      "paired": true,
+      "replicates": 5000,
+      "seed": 42,
+      "ci": 0.95,
+      "method": "PERCENTILE"
+    }
+  },
+  "future_state": {
+    "eligible_rows": 17458,
+    "eligible_dialogues": 1653,
+    "classes": [
+      -2,
+      -1,
+      0,
+      1,
+      2
+    ],
+    "thresholds": [
+      -2,
+      -1,
+      0,
+      1
+    ],
+    "classification_metrics": [
+      "accuracy",
+      "macro_f1",
+      "balanced_accuracy",
+      "weighted_f1",
+      "ordinal_mae"
+    ],
+    "probability_metrics": [
+      "brier",
+      "ordinal_logloss",
+      "expected_state_mae",
+      "threshold_accuracy"
+    ],
+    "bootstrap": {
+      "unit": "dialogue_id",
+      "paired": true,
+      "replicates": 5000,
+      "seed": 43,
+      "ci": 0.95,
+      "method": "PERCENTILE"
+    }
+  },
+  "contrasts": [
+    "S12B_R_MINUS_S7_R",
+    "S12B_QR_MINUS_S7_QR",
+    "S7_QR_MINUS_S7_R",
+    "S12B_QR_MINUS_S12B_R",
+    "DIFFERENCE_IN_DIFFERENCES"
+  ],
+  "outputs": [
+    "results/phase_s12b/evaluation_v1/s12b_component_ablation_evaluation_summary_v1.json",
+    "results/phase_s12b/evaluation_v1/s12b_component_ablation_evaluation_arrays_v1.npz",
+    "results/phase_s12b/evaluation_v1/s12b_component_ablation_evaluation_report_v1.txt"
+  ],
+  "dev_payload_used": false,
+  "test_payload_used": false,
+  "no_posthoc_success_gate": true,
+  "overwrite_policy": "REFUSE_IF_OUTPUT_DIRECTORY_EXISTS"
+}

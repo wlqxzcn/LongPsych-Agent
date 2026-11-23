@@ -1,0 +1,57 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S2-B2",
+  "artifact": "FSAR S2-B2 Full TRAIN BGE Embedding Protocol V1",
+  "status": "FROZEN_BEFORE_FULL_ENCODING",
+
+  "scope": "TRAIN_ONLY",
+
+  "query_input": "data/canonical/fsar_s2/train_query_gold_map_v1.jsonl",
+  "response_input": "data/canonical/fsar_s2/train_unique_responses_v1.jsonl",
+
+  "expected_query_rows": 62889,
+  "expected_response_rows": 61502,
+
+  "expected_query_input_sha256": "3662cef13545533dbda2a65474d03421cb64115491c655542333766d06092f3d",
+  "expected_response_input_sha256": "6ed2a5807c7a3bdcb30b7b6b947265129b19925a2cf7e8872fa36231b4cab25e",
+
+  "encoder": "BAAI/bge-large-zh-v1.5",
+  "encoder_path": "models/BAAI/bge-large-zh-v1___5",
+  "encoder_frozen": true,
+
+  "max_seq_length": 512,
+  "embedding_dimension": 1024,
+
+  "pooling": {
+    "cls": true,
+    "mean": false,
+    "max": false
+  },
+
+  "normalize_module": true,
+  "normalize_embeddings_argument": true,
+
+  "query_prefix": null,
+  "response_prefix": null,
+
+  "dtype": "float32",
+  "runtime_batch_size": 64,
+  "runtime_batch_size_role": "COMPUTATIONAL_ONLY",
+
+  "row_order": "EXACT_INPUT_JSONL_ORDER",
+
+  "token_length_audit": {
+    "enabled": true,
+    "role": "DESCRIPTIVE_ONLY",
+    "does_not_change_max_seq_length": true
+  },
+
+  "future_state_supervision_used": false,
+  "hard_negative_mining_performed": false,
+  "retrieval_metrics_computed": false,
+
+  "dev_payload_used": false,
+  "test_payload_used": false,
+
+  "overwrite_existing_formal_cache": false
+}

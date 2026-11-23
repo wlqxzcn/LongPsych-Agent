@@ -1,0 +1,108 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S7",
+  "artifact": "Future Auxiliary Loss Weight Sensitivity V1",
+  "status": "FROZEN_BEFORE_S7_TRAINING",
+  "scope": "EXPLORATORY_TRAIN_INTERNAL_5FOLD_ONLY",
+  "source_script": {
+    "path": "src/training/s5_train_future_aux_5fold.py",
+    "sha256": "95827ee56aac5bc170b2368e3d4f6031ddc9d98e16b8ac8c0cde6982878d1592",
+    "modified": false
+  },
+  "conditions": [
+    "R_FUTURE",
+    "QR_FUTURE"
+  ],
+  "baselines": {
+    "RANK_ONLY": "FROZEN_IN_S4",
+    "BETA_1": "FROZEN_IN_S5",
+    "baseline_retraining": false
+  },
+  "beta_grid": [
+    2,
+    4,
+    8
+  ],
+  "beta_environment_variable": "FSAR_S7_BETA",
+  "joint_loss": {
+    "formula": "mean(rank_loss) + beta * mean(masked_future_BCE)",
+    "allowed_beta_values": [
+      2,
+      4,
+      8
+    ]
+  },
+  "future_supervision": {
+    "construct": "agency_constructive_orientation",
+    "source": "STRICT_DUAL_CONSENSUS_VALUE_ONLY",
+    "gold_pair_only": true,
+    "negative_future_labels": false,
+    "oversampling": false,
+    "class_weight": false,
+    "fold_specific_response_identity_mask": true,
+    "ordinal_thresholds": [
+      -2,
+      -1,
+      0,
+      1
+    ],
+    "loss": "MEAN_BCE_WITH_LOGITS_OVER_FOUR_THRESHOLDS"
+  },
+  "condition_difference": {
+    "R_FUTURE": "[z_r; zeros_like(z_r)]",
+    "QR_FUTURE": "[z_r; z_q*z_r]"
+  },
+  "optimizer": {
+    "name": "Adam",
+    "learning_rate": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0
+  },
+  "training": {
+    "folds": 5,
+    "batch_size_queries": 128,
+    "max_epochs": 20,
+    "mixed_precision": false,
+    "lr_scheduler": null,
+    "gradient_clipping": null,
+    "model_initialization_seed": 42
+  },
+  "checkpoint_selection": {
+    "metric": "VALIDATION_RANKING_CROSS_ENTROPY",
+    "direction": "MINIMIZE",
+    "tie_break": "EARLIEST_EPOCH",
+    "future_validation_metric_used": false,
+    "retrieval_metric_used": false
+  },
+  "evaluation_policy": {
+    "beta_selection": "TRAIN_INTERNAL_VALIDATION_ONLY",
+    "S6_OOF_used_for_beta_selection": false,
+    "S7_OOF_status": "EXPLORATORY",
+    "independent_confirmation_required": true
+  },
+  "output_policy": {
+    "root": "results/phase_s7/beta_{2,4,8}",
+    "S4_S5_S6_overwrite_allowed": false
+  },
+  "input_sha256": {
+    "query_embedding": "18aa1ed637bef3980775c10d96d1cde6112863b0c5761e2e69fb7ab89c981005",
+    "response_embedding": "7a4ee8d462adce73174c853bf21b758132f5243020fa6253b1c01a99973bc96f",
+    "master": "d9196a5ea11a9433c0550db6ebcfce76a6965ebec14ae9e3fb6660cc1e6ab3be",
+    "fold": "a4f129fb6b5e5d23aad4215d261d33e4be2dc1ff34f8dcb7e4f0c92d430bcdf9",
+    "future_mask": "84ee56cf9549a9842dc717bfd6a8a3cad41c457298356a8796dbfbe7a9b85a3d",
+    "reservoir": "e122dfe8f2c4eb8902068090d5852c79317641ea850720d58e4d4f4133474ab0",
+    "model_code": "7dbd9dcdb1fb382ff031e61eb51058016367be24fe89ab8c95bc9b5fe1d8d755",
+    "architecture_protocol": "8938e309b0131b2f9961c116c895415c3be227ebba7e3df65f653ee674accf2c",
+    "training_protocol": "e30ca60f61d12ac0b291a473a656eed326b24cee1d324f06c21623bfc4d0d51e",
+    "s5_protocol": "33dd9bfd795300a73e1450a9278d06ae75809a992f504eaffe96fc28f97e0882",
+    "s4_summary": "be30581e5804c9b7368ed3f23037f79dc78b53659e3ca9abde63a2e4387de6d0",
+    "s4_oof": "fbcb8947ebf72b1364e535a15872ac3415fdb56959b5f00091c464a75fc092f4"
+  },
+  "dev_payload_used": false,
+  "test_payload_used": false,
+  "no_posthoc_hyperparameter_change": true
+}

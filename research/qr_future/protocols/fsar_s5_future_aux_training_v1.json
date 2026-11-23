@@ -1,0 +1,98 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S5",
+  "artifact": "FSAR S5 R-Future and QR-Future 5-Fold Formal Training Protocol V1",
+  "status": "FROZEN_BEFORE_FUTURE_AUX_PARAMETER_UPDATE",
+
+  "scope": "TRAIN_INTERNAL_5FOLD_ONLY",
+
+  "conditions": [
+    "R_FUTURE",
+    "QR_FUTURE"
+  ],
+
+  "baseline_status": {
+    "RANK_ONLY": "FROZEN_IN_S4",
+    "baseline_retraining": false
+  },
+
+  "shared_ranking_task": {
+    "gold_per_query": 1,
+    "hard_negatives_per_query": 100,
+    "candidates_per_query": 101,
+    "gold_position": 0,
+    "negative_sampling": "NONE",
+    "loss": "LISTWISE_SOFTMAX_CROSS_ENTROPY"
+  },
+
+  "future_supervision": {
+    "construct": "agency_constructive_orientation",
+    "source": "STRICT_DUAL_CONSENSUS_VALUE_ONLY",
+    "gold_pair_only": true,
+    "negative_future_labels": false,
+    "oversampling": false,
+    "class_weight": false,
+    "fold_specific_response_identity_mask": true,
+    "mask_artifact": "data/supervision/fsar_s3/fsar_s3c0_future_loss_eligibility_by_fold_v1.npz",
+    "ordinal_thresholds": [-2, -1, 0, 1],
+    "loss": "MEAN_BCE_WITH_LOGITS_OVER_FOUR_THRESHOLDS"
+  },
+
+  "condition_difference": {
+    "R_FUTURE": "[z_r; zeros_like(z_r)]",
+    "QR_FUTURE": "[z_r; z_q*z_r]"
+  },
+
+  "joint_loss": {
+    "beta_parameter": null,
+    "beta_search": false,
+    "formula": "mean(rank_loss) + mean_over_full_query_batch(mask * mean_threshold_future_BCE)"
+  },
+
+  "optimizer": {
+    "name": "Adam",
+    "learning_rate": 0.0001,
+    "betas": [0.9, 0.999],
+    "eps": 1e-8,
+    "weight_decay": 0.0
+  },
+
+  "training": {
+    "batch_size_queries": 128,
+    "max_epochs": 20,
+    "mixed_precision": false,
+    "lr_scheduler": null,
+    "gradient_clipping": null
+  },
+
+  "randomness": {
+    "model_initialization_seed": 42,
+    "seed_search": false,
+    "epoch_shuffle_seed_formula": "42000 + fold_id * 100 + epoch_id",
+    "same_query_order_across_conditions": true,
+    "same_ranker_initialization_across_conditions": true,
+    "same_future_head_initialization_across_R_and_QR": true
+  },
+
+  "checkpoint_selection": {
+    "metric": "VALIDATION_RANKING_CROSS_ENTROPY",
+    "direction": "MINIMIZE",
+    "epochs": "1_TO_20",
+    "tie_break": "EARLIEST_EPOCH",
+    "future_validation_metric_used": false,
+    "retrieval_metric_used": false
+  },
+
+  "formal_reveal_policy": {
+    "retrieval_metrics_computed_during_training": false,
+    "future_metrics_computed_during_training": false,
+    "oof_ranking_scores_saved": true,
+    "oof_future_logits_saved": true,
+    "unified_performance_reveal_phase": "S6"
+  },
+
+  "dev_payload_used": false,
+  "test_payload_used": false,
+
+  "no_posthoc_hyperparameter_change": true
+}

@@ -1,0 +1,49 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S2-D1",
+  "artifact": "FSAR S2-D1 TRAIN Dense Hard-Negative Reservoir V1",
+  "status": "FROZEN_BEFORE_MATERIALIZATION",
+
+  "scope": "TRAIN_ONLY",
+
+  "candidate_universe": "UNIQUE_NORMALIZED_RESPONSE",
+  "candidate_universe_size": 61502,
+
+  "retriever": "Frozen BAAI/bge-large-zh-v1.5",
+
+  "selection_rule": "Top-100 highest-scoring non-gold Dense candidates per TRAIN query",
+
+  "reservoir_depth": 100,
+
+  "reservoir_depth_rationale": {
+    "train_only_structure_diagnostic": true,
+    "unique_candidates_used_at_k100": 60473,
+    "candidate_identity_coverage_at_k100": 0.983268836786,
+    "median_k100_similarity": 0.6232079863548279,
+    "fraction_gold_above_k100": 0.2924835821844838,
+    "max_candidate_reuse_at_k100": 5351,
+    "reason": "K=100 is the observed coverage-diversity elbow: candidate identity coverage is already near saturation while deeper reservoirs yield limited additional identity coverage and substantially greater candidate reuse concentration."
+  },
+
+  "gold_candidate_excluded": true,
+
+  "same_dialogue_candidate_excluded": false,
+  "same_dialogue_candidate_flag_recorded": true,
+
+  "duplicate_normalized_response_candidates": false,
+
+  "negative_interpretation": "NON_GOLD_COMPARISON_CANDIDATE_NOT_CLINICALLY_WRONG",
+
+  "future_state_label_assigned_to_negative_candidates": false,
+
+  "formal_training_negative_count": "NOT_YET_FROZEN",
+  "negative_sampling_strategy": "NOT_YET_FROZEN",
+
+  "reranker_training_performed": false,
+  "future_state_supervision_used": false,
+
+  "dev_payload_used": false,
+  "test_payload_used": false,
+
+  "no_posthoc_reservoir_depth_tuning": true
+}

@@ -1,0 +1,87 @@
+{
+  "artifact": "FSAR S12C Matched Rank-Only Supplementary Training Protocol V1",
+  "project": "PsychResponse_FSAR",
+  "phase": "S12C_MATCHED_RANK_ONLY_SUPPLEMENT",
+  "status": "FROZEN_BEFORE_TRAINING",
+  "scope": "TRAIN_INTERNAL_OOF_ONLY",
+  "purpose": "Train architecture-matched ranking-only baselines for the S12C FULL and NO_PRODUCT ranking architectures.",
+  "conditions": {
+    "RANK_ONLY_FULL_MATCHED": {
+      "model_class": "RankOnlyFullMatchedModel",
+      "rank_input_dimension": 4096,
+      "product_interaction": true
+    },
+    "RANK_ONLY_NO_PRODUCT_MATCHED": {
+      "model_class": "RankOnlyNoProductMatchedModel",
+      "rank_input_dimension": 3072,
+      "product_interaction": false
+    }
+  },
+  "initialization": {
+    "query_adapter": "zero",
+    "response_adapter": "zero",
+    "rank_head_weights": "zero except absolute-difference block",
+    "absolute_difference_weights": "-1/sqrt(1024)",
+    "initial_ranking_function": "-L1(z_q,z_r)/sqrt(1024)",
+    "initial_ranking_function_matched": true,
+    "initial_max_abs_diff": {
+      "RANK_ONLY_FULL_MATCHED": 1.1920928955078125e-07,
+      "RANK_ONLY_NO_PRODUCT_MATCHED": 1.1920928955078125e-07
+    },
+    "parameter_count_matched": false
+  },
+  "training": {
+    "ranking_rows": 62889,
+    "candidate_count": 101,
+    "folds": 5,
+    "split_unit": "dialogue_id",
+    "batch_size": 128,
+    "max_epochs": 20,
+    "seed": 42,
+    "epoch_shuffle_seed": "42000 + fold * 100 + epoch",
+    "optimizer": "Adam",
+    "learning_rate": 0.0001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0,
+    "loss": "listwise ranking cross entropy only",
+    "checkpoint_selection": "MIN_VALIDATION_RANKING_CROSS_ENTROPY",
+    "future_supervision_used": false
+  },
+  "input_sha256": {
+    "query_embedding": "18aa1ed637bef3980775c10d96d1cde6112863b0c5761e2e69fb7ab89c981005",
+    "response_embedding": "7a4ee8d462adce73174c853bf21b758132f5243020fa6253b1c01a99973bc96f",
+    "master": "d9196a5ea11a9433c0550db6ebcfce76a6965ebec14ae9e3fb6660cc1e6ab3be",
+    "fold": "a4f129fb6b5e5d23aad4215d261d33e4be2dc1ff34f8dcb7e4f0c92d430bcdf9",
+    "reservoir": "e122dfe8f2c4eb8902068090d5852c79317641ea850720d58e4d4f4133474ab0",
+    "model_code": "be4db64f5203830e742d9bc078900d106769b4b6380a1de95ca77c542521f99c",
+    "architecture_protocol": "2e954b30aa028b997d0528fb3657dbe634e8c0043aa0c1c7bda4e819a329bce1"
+  },
+  "source": {
+    "training_script_sha256": "aa2ac1f739367515094554753c0babe4de36d79919cb40ffeaf5a0a09acde930",
+    "model_code_sha256": "be4db64f5203830e742d9bc078900d106769b4b6380a1de95ca77c542521f99c",
+    "architecture_protocol_sha256": "2e954b30aa028b997d0528fb3657dbe634e8c0043aa0c1c7bda4e819a329bce1"
+  },
+  "data_access": {
+    "train_embeddings_used": true,
+    "train_reservoir_used": true,
+    "future_labels_read": false,
+    "future_mask_read": false,
+    "dev_payload_used": false,
+    "test_payload_used": false
+  },
+  "outputs": {
+    "root": "results/phase_s12c/rank_only_matched_v1",
+    "checkpoint_subdirectories": [
+      "checkpoints/rank_only_full_matched",
+      "checkpoints/rank_only_no_product_matched"
+    ],
+    "oof_subdirectory": "oof",
+    "curve_subdirectory": "training_curves",
+    "summary_subdirectory": "summaries"
+  },
+  "overwrite_policy": "REFUSE_IF_PROTOCOL_OR_OUTPUT_EXISTS"
+}

@@ -1,0 +1,155 @@
+{
+  "artifact": "FSAR S12C STEP 2F18Q Dense-ORCA Joint Paired Statistics Protocol V1",
+  "status": "FROZEN_BEFORE_STATISTICAL_EVALUATION",
+  "scope": "TRAIN_INTERNAL_5FOLD_OOF_ONLY",
+  "purpose": "Paired comparison of six matched ranking/future conditions between Dense BGE and ORCA k=2 representation spaces.",
+  "conditions": [
+    "RANK_ONLY_FULL_MATCHED",
+    "RANK_ONLY_NO_PRODUCT_MATCHED",
+    "R_FUTURE_FULL",
+    "R_FUTURE_NO_PRODUCT",
+    "QR_FUTURE_FULL",
+    "QR_FUTURE_NO_PRODUCT"
+  ],
+  "spaces": [
+    "DENSE",
+    "ORCA_K2"
+  ],
+  "reference_baseline": "DENSE_BGE",
+  "data": {
+    "queries": 62889,
+    "dialogues": 1666,
+    "folds": 5,
+    "candidate_count": 101,
+    "gold_position": 0,
+    "negative_count": 100,
+    "candidate_order_sha256": "e3dc4ef00cbf001b9e37cfd8369863e745a9b111cea8496ae82a70fccb890e7d"
+  },
+  "ranking": {
+    "primary_tie_policy": "STRICT_GREATER",
+    "primary_rank_formula": "1 + COUNT(negative_score > gold_score)",
+    "sensitivity_tie_policy": "CONSERVATIVE_GREATER_OR_EQUAL",
+    "sensitivity_rank_formula": "1 + COUNT(negative_score >= gold_score)",
+    "metrics": [
+      "MRR",
+      "R@1",
+      "R@5",
+      "R@10",
+      "R@20"
+    ],
+    "primary_metric": "MRR",
+    "aggregation": "Average query metrics within each dialogue, then unweighted mean across dialogues."
+  },
+  "statistics": {
+    "method": "paired_dialogue_cluster_bootstrap",
+    "replicates": 5000,
+    "seed": 43,
+    "confidence_level": 0.95,
+    "resampling_unit": "dialogue",
+    "shared_resampling_indices_across_all_conditions_and_contrasts": true,
+    "bootstrap_chunk_size": 64
+  },
+  "planned_contrasts": [
+    "ORCA minus Dense for each of six matched conditions",
+    "R-Future and QR-Future gains versus the matched Rank-Only baseline within each space",
+    "QR-Future minus R-Future within each space",
+    "No-Product minus Full ranking ablation within each space",
+    "Product Difference-in-Differences within each space",
+    "ORCA-by-Future cross-space interaction contrasts",
+    "ORCA-by-QR-vs-R cross-space interaction contrasts",
+    "ORCA-by-Product-DID cross-space interaction contrast"
+  ],
+  "input_sha256": {
+    "master": "d9196a5ea11a9433c0550db6ebcfce76a6965ebec14ae9e3fb6660cc1e6ab3be",
+    "fold": "a4f129fb6b5e5d23aad4215d261d33e4be2dc1ff34f8dcb7e4f0c92d430bcdf9",
+    "reservoir": "e122dfe8f2c4eb8902068090d5852c79317641ea850720d58e4d4f4133474ab0",
+    "dense_evaluation_protocol": "d4d2648253c28a8856257bb211dd080148dcaca804bf0744a9c4c4a29e7f7b34",
+    "dense_seven_condition_arrays": "c5fe811f646fd3fe191838fde7343e2c6e96b9a77f7d71072d9df0d7ae648673",
+    "dense_seven_condition_summary": "be118c459102e96da57af2856e7772cd68f85e2ec629c51fbd7cefb86a703d0a",
+    "dense_rank_only_protocol": "872791fa6f70afece24dc09a0d63d6202c63b48d76f7296405b30e81d0da689e",
+    "dense_rank_only_run_manifest": "15112273bc73d6516d5ff56c2eef39e15efc74874cb63f2f68d6f1baacfea815",
+    "dense_future_architecture_protocol": "2e954b30aa028b997d0528fb3657dbe634e8c0043aa0c1c7bda4e819a329bce1",
+    "orca_training_protocol": "da36ab67fc061baff770ba3eaaed9d52e0b4ce813a69f574e0fd11d6de303a1a",
+    "orca_training_run_manifest": "f4ba9eacbe05e1eee447c1867299a774311527ec31276b92d82899990d78c5d6",
+    "step_2f18m_evaluation_protocol": "93bb3c35084e04e7daf56e03ac6696bfb8836701e4ea2742f642dae194785839",
+    "step_2f18m_evaluation_summary": "d95385719105b143b494ef38e42e33a051c7c51daa79adb7fb668a9ca8e4b1de",
+    "dense_oof::RANK_ONLY_FULL_MATCHED": "f20c1fd62a2bfc4b9b12093dc26d45e34a658bdf4bb5fb81e8885bc180c7bb94",
+    "dense_summary::RANK_ONLY_FULL_MATCHED": "399a23edcbc61dfbe9a074059ca858c270252dd93e9f3af0f1247365be0d90d0",
+    "orca_oof::RANK_ONLY_FULL_MATCHED": "a890883cf3df6a80e38088c86d792433cf8968a8217891e8de8d0087e29682d3",
+    "orca_summary::RANK_ONLY_FULL_MATCHED": "590952cdaabeea9f653f7c698651ebfea4a21e42fce30c45119f2f7bf383e563",
+    "dense_oof::RANK_ONLY_NO_PRODUCT_MATCHED": "4cbb91324be34e71f7a5a30b86198bed57c2320f4fa9f51ccc1c3f3ac9eee7f7",
+    "dense_summary::RANK_ONLY_NO_PRODUCT_MATCHED": "d975eaf5d314f5a14241c1c1357af72744b3b3cfe49ec296ef8843c8013b9d32",
+    "orca_oof::RANK_ONLY_NO_PRODUCT_MATCHED": "f27e716fcda31bbd9276e420b94d3b3025f76b10885fc21c7993d0861506f724",
+    "orca_summary::RANK_ONLY_NO_PRODUCT_MATCHED": "dd0798e235ac7c2eb5cba70154f84688b4375bda00f241f511fd097dfdd4803e",
+    "dense_oof::R_FUTURE_FULL": "c2b9cabf149f7517cc6457f81fe0a8defa6b74ec43b83a5b22725213f24732ac",
+    "dense_summary::R_FUTURE_FULL": "3a4c8ac31e5e7d6e112e203e996a09dc52682a3392d3a24d3055f2149e714bc5",
+    "orca_oof::R_FUTURE_FULL": "bbe4c1d0444befaf799ee9b1a3c91b3f7989c08183c69dbffbf8324af093b9de",
+    "orca_summary::R_FUTURE_FULL": "750520869f84625d51dd17eb4919ecc06876193796cca8935d74d9bbb2a84bf8",
+    "dense_oof::R_FUTURE_NO_PRODUCT": "e0500cf39d75002569e6bf3fb6269489bf7f303ada7c545bc699d77c78cab55c",
+    "dense_summary::R_FUTURE_NO_PRODUCT": "2a1a9e879b5b8e0db8f545647704285f68b62aa85d919ac3613ee51cd552058c",
+    "orca_oof::R_FUTURE_NO_PRODUCT": "9c279251d9a3cc30fc3c49aff1cbf21ad1653fff99882f2c8a00c8d60c8cb05f",
+    "orca_summary::R_FUTURE_NO_PRODUCT": "7e2385dbc888cc3e94e8175b89d95aad2177a3f65c57a9b70bcd831c316d4a64",
+    "dense_oof::QR_FUTURE_FULL": "93e0b536906c6e308e74b07635da2a00eaa774e928bffa3bbeaea7142a46f3fc",
+    "dense_summary::QR_FUTURE_FULL": "966a99b14f2ab354bed82e42c0a0ba0a1b4e2dd1e22d25b7cb741e1ad6617011",
+    "orca_oof::QR_FUTURE_FULL": "93b87a331401c4739e9576319f66a0e300eb03939a2ae23bbf674bd52efe38dc",
+    "orca_summary::QR_FUTURE_FULL": "ef57277cfb7ac4d25c03a3c24ef4f20d6d4c3d1359135fbb8ac23491c4b532c0",
+    "dense_oof::QR_FUTURE_NO_PRODUCT": "cb90dd863d073a63f5645e227d3a12349e54640807b1cb7372a4d1a8be12d3b9",
+    "dense_summary::QR_FUTURE_NO_PRODUCT": "23d9d0ef739943ea8673f7f1cfd7d4ca731fce5a152e4173f596bc5aad308036",
+    "orca_oof::QR_FUTURE_NO_PRODUCT": "bc9dad56a352aa2a4027b343bcdfa0958e0c9427c145b120d737a328eda575e4",
+    "orca_summary::QR_FUTURE_NO_PRODUCT": "7bf6b2312fb201f0969dfc64a34c9f677c9930797319a2cb6e6be02e446afd8f"
+  },
+  "audit": {
+    "n_queries": 62889,
+    "n_dialogues": 1666,
+    "n_folds": 5,
+    "candidate_shape": [
+      62889,
+      101
+    ],
+    "gold_position": 0,
+    "negative_count": 100,
+    "candidate_order_sha256": "e3dc4ef00cbf001b9e37cfd8369863e745a9b111cea8496ae82a70fccb890e7d",
+    "dense_seven_condition_rank_reproduction": "PASS",
+    "dense_rank_only_manifest_oof_sha": "PASS",
+    "orca_run_manifest_oof_sha": "PASS",
+    "orca_protocol_sha256": "da36ab67fc061baff770ba3eaaed9d52e0b4ce813a69f574e0fd11d6de303a1a",
+    "dense_oof_hashes": {
+      "RANK_ONLY_FULL_MATCHED": "f20c1fd62a2bfc4b9b12093dc26d45e34a658bdf4bb5fb81e8885bc180c7bb94",
+      "RANK_ONLY_NO_PRODUCT_MATCHED": "4cbb91324be34e71f7a5a30b86198bed57c2320f4fa9f51ccc1c3f3ac9eee7f7",
+      "R_FUTURE_FULL": "c2b9cabf149f7517cc6457f81fe0a8defa6b74ec43b83a5b22725213f24732ac",
+      "R_FUTURE_NO_PRODUCT": "e0500cf39d75002569e6bf3fb6269489bf7f303ada7c545bc699d77c78cab55c",
+      "QR_FUTURE_FULL": "93e0b536906c6e308e74b07635da2a00eaa774e928bffa3bbeaea7142a46f3fc",
+      "QR_FUTURE_NO_PRODUCT": "cb90dd863d073a63f5645e227d3a12349e54640807b1cb7372a4d1a8be12d3b9"
+    },
+    "orca_oof_hashes": {
+      "RANK_ONLY_FULL_MATCHED": "a890883cf3df6a80e38088c86d792433cf8968a8217891e8de8d0087e29682d3",
+      "RANK_ONLY_NO_PRODUCT_MATCHED": "f27e716fcda31bbd9276e420b94d3b3025f76b10885fc21c7993d0861506f724",
+      "R_FUTURE_FULL": "bbe4c1d0444befaf799ee9b1a3c91b3f7989c08183c69dbffbf8324af093b9de",
+      "R_FUTURE_NO_PRODUCT": "9c279251d9a3cc30fc3c49aff1cbf21ad1653fff99882f2c8a00c8d60c8cb05f",
+      "QR_FUTURE_FULL": "93b87a331401c4739e9576319f66a0e300eb03939a2ae23bbf674bd52efe38dc",
+      "QR_FUTURE_NO_PRODUCT": "bc9dad56a352aa2a4027b343bcdfa0958e0c9427c145b120d737a328eda575e4"
+    },
+    "dense_summary_hashes": {
+      "RANK_ONLY_FULL_MATCHED": "399a23edcbc61dfbe9a074059ca858c270252dd93e9f3af0f1247365be0d90d0",
+      "RANK_ONLY_NO_PRODUCT_MATCHED": "d975eaf5d314f5a14241c1c1357af72744b3b3cfe49ec296ef8843c8013b9d32",
+      "R_FUTURE_FULL": "3a4c8ac31e5e7d6e112e203e996a09dc52682a3392d3a24d3055f2149e714bc5",
+      "R_FUTURE_NO_PRODUCT": "2a1a9e879b5b8e0db8f545647704285f68b62aa85d919ac3613ee51cd552058c",
+      "QR_FUTURE_FULL": "966a99b14f2ab354bed82e42c0a0ba0a1b4e2dd1e22d25b7cb741e1ad6617011",
+      "QR_FUTURE_NO_PRODUCT": "23d9d0ef739943ea8673f7f1cfd7d4ca731fce5a152e4173f596bc5aad308036"
+    },
+    "dialogue_fold_integrity": "PASS",
+    "future_label_alignment": "PASS",
+    "condition_alignment": "PASS"
+  },
+  "execution_constraints": {
+    "training": false,
+    "checkpoint_modification": false,
+    "checkpoint_reselection": false,
+    "test_payload_used": false,
+    "dev_payload_used": false,
+    "test_time_fitting": false,
+    "parameter_update": false,
+    "existing_outputs_overwritten": false
+  },
+  "evaluator_script_sha256": "252a378bc2ff8d0b4989c612f082f7c8ded1f0646d06ccfcc5dc126b223bae81"
+}

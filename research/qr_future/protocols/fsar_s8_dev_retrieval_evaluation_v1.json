@@ -1,0 +1,345 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S8",
+  "artifact": "FSAR S8 External Dev Retrieval Evaluation Protocol V1",
+  "status": "FROZEN_BEFORE_EVALUATION",
+  "scope": "EXTERNAL_DEV_RETRIEVAL_ONLY",
+  "created_utc": "2026-10-28T01:39:10Z",
+  "evaluation_script_sha256": "4561d0233d871ef498d36c539bfa2d389764f1967ecaa127ef10a4340f5cac49",
+  "source_and_model_file_sha256": {
+    "data/canonical/fsar_s2/train_unique_responses_v1.jsonl": "6ed2a5807c7a3bdcb30b7b6b947265129b19925a2cf7e8872fa36231b4cab25e",
+    "cache/embeddings/fsar_train_unique_responses_bge_index_v1.jsonl": "fd8263c8fd00b4d8d23b915c7f241fb84d1d2ffc7b24c747bf34e4a9b8e47274",
+    "cache/embeddings/fsar_train_unique_responses_bge_v1.npy": "7a4ee8d462adce73174c853bf21b758132f5243020fa6253b1c01a99973bc96f",
+    "data/splits/psydial_targets_dev_all.jsonl": "8909877897573c0d7fdf517ae53e739f4a68f96c89fb93819282521349562ca5",
+    "data/splits/psydial_targets_dev_long20.jsonl": "6721ffa84c55ab63942f0a173fc4d5747f0190ce4394a57677ba70f98138484d",
+    "src/models/s3c1_fsar_models.py": "7dbd9dcdb1fb382ff031e61eb51058016367be24fe89ab8c95bc9b5fe1d8d755",
+    "src/retrieval/s2b2_encode_full_train_bge.py": "c4c9b5badfdda0ed266163b6313b04c361d0eb395d07da83d0b0f4db79d23959",
+    "models/BAAI/bge-large-zh-v1___5/config.json": "2d4f53504b43a856f982dad647835c0ae98f91a73c8ff0db95ab89e3e4806fa9",
+    "models/BAAI/bge-large-zh-v1___5/pytorch_model.bin": "bf84a56fb045c24e090495195584a3922c3e4204107f0bba8b79c11f67a207f2",
+    "models/BAAI/bge-large-zh-v1___5/tokenizer.json": "7dfbf1966ebf99d471c3796e9b457329d2b2182b817e144f1e904b957745c839",
+    "models/BAAI/bge-large-zh-v1___5/tokenizer_config.json": "e1790949631401af1bfb6c9c7aeec7fcf612e274d73579d99f704faea40c8ba7",
+    "models/BAAI/bge-large-zh-v1___5/special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+    "models/BAAI/bge-large-zh-v1___5/vocab.txt": "45bbac6b341c319adc98a532532882e91a9cefc0329aa57bac9ae761c27b291c",
+    "models/BAAI/bge-large-zh-v1___5/modules.json": "84e40c8e006c9b1d6c122e02cba9b02458120b5fb0c87b746c41e0207cf642cf",
+    "models/BAAI/bge-large-zh-v1___5/config_sentence_transformers.json": "940d5f50db195fa6e5e6a4f122c095f77880de259d74b14a65779ed48bdd7c56",
+    "models/BAAI/bge-large-zh-v1___5/sentence_bert_config.json": "84e39fda68ccbff05bfa723ae9c0e70e23e2ec373b76e0f8c6e71af72a693cbf",
+    "models/BAAI/bge-large-zh-v1___5/1_Pooling/config.json": "e54c164a07274f2eb45bb724f54a79d1efcc90c41573887cd9a29aeee0597352",
+    "results/phase_s4/checkpoints/rank_only/rank_only_fold0_best_v1.pt": "afb22a916d640eca9001bb5cfb9f4a7bc1e01f34a7099e9da0c5ac2d6f6d2f84",
+    "results/phase_s4/checkpoints/rank_only/rank_only_fold1_best_v1.pt": "50cae63ab5a768686a083725bf789e623a7fa32f254e8e1a55ed30abca1ff0cf",
+    "results/phase_s4/checkpoints/rank_only/rank_only_fold2_best_v1.pt": "380191dc3685e3ab6d6664a50b3ebaa4f32ea1eccd3970d692e831086546c26a",
+    "results/phase_s4/checkpoints/rank_only/rank_only_fold3_best_v1.pt": "2df1be87131655a433ecd5c7b35de50c5977da02fca6a1ad1c8a40c635723d5a",
+    "results/phase_s4/checkpoints/rank_only/rank_only_fold4_best_v1.pt": "a52794280e4fee537510d92df709baed6b281758d487264d120d7754a4fe2cc4",
+    "results/phase_s5/checkpoints/r_future/r_future_fold0_best_v1.pt": "21c5c42d13415c2ee4d16a26a9fa0fe03c56d467e6947217f3d02fdafff52546",
+    "results/phase_s5/checkpoints/r_future/r_future_fold1_best_v1.pt": "f5728f8abbd2bfff2a5124ca8af72aa2a9010662aaeb2ee54e69100fc4db9561",
+    "results/phase_s5/checkpoints/r_future/r_future_fold2_best_v1.pt": "dd87539e2713c4a57400da8c3779a4fd754addcb0f198aa895b62f693c0811aa",
+    "results/phase_s5/checkpoints/r_future/r_future_fold3_best_v1.pt": "f7515499e29a1a8b3928659ab793f80d1e7131e0b56f6c830f9bcc231264c5ba",
+    "results/phase_s5/checkpoints/r_future/r_future_fold4_best_v1.pt": "2c2eb415e6e182e602072de5f43c0c3dd1517706432085eaa5b10211ec55ef09",
+    "results/phase_s7/beta_2/checkpoints/r_future/r_future_fold0_best_v1.pt": "b14edfacfc5b5df4ebee3738de5053a52bd5e219843714069af75769440c0e71",
+    "results/phase_s7/beta_2/checkpoints/r_future/r_future_fold1_best_v1.pt": "00e10cccb770a382b2e8dd6511b1b80484d6739fbb4e6bba86ceabed6780cc18",
+    "results/phase_s7/beta_2/checkpoints/r_future/r_future_fold2_best_v1.pt": "1814249429bb05b00f621ffaf3363b4aef7f7869373424059f1b26e46af54e70",
+    "results/phase_s7/beta_2/checkpoints/r_future/r_future_fold3_best_v1.pt": "0911a7d1ab96e0a1a473962822297a2a998dda790ad8cade7615209faa1a4bbf",
+    "results/phase_s7/beta_2/checkpoints/r_future/r_future_fold4_best_v1.pt": "747d14122be90b6a7c47c4b3796c8e68566fae6abcbbb389bd249bb614cb61cc",
+    "results/phase_s7/beta_4/checkpoints/r_future/r_future_fold0_best_v1.pt": "fbd29596af111b33087c86402f9488ea722fcd15c82d76c4af87b02b0714ad71",
+    "results/phase_s7/beta_4/checkpoints/r_future/r_future_fold1_best_v1.pt": "c017d9ee74805014be96a159e914e66c37a9f3e5161d200605cf70fa1000909d",
+    "results/phase_s7/beta_4/checkpoints/r_future/r_future_fold2_best_v1.pt": "606b533ff2eb4bc5933021bdc6a9641a5f2fa0f5e3c928d5c60cb59bb0994f46",
+    "results/phase_s7/beta_4/checkpoints/r_future/r_future_fold3_best_v1.pt": "d8d48ded5d21b4f1c0f5898796d4773a1e8d74654d80ba134e112cdbf877eba3",
+    "results/phase_s7/beta_4/checkpoints/r_future/r_future_fold4_best_v1.pt": "e538b23bf60e275cb2143a1e2f9ee1b1557cf1232cc4280cd8a7d7588bd4368a",
+    "results/phase_s7/beta_8/checkpoints/r_future/r_future_fold0_best_v1.pt": "814cd4439a1944ece38a1ff7f0cd0112a947ae1222ac93d57238b52e7004fd99",
+    "results/phase_s7/beta_8/checkpoints/r_future/r_future_fold1_best_v1.pt": "9ea472d0f694b520b8e64ea784779f0327401aca09c1e2779b2bbe27ed3b64c0",
+    "results/phase_s7/beta_8/checkpoints/r_future/r_future_fold2_best_v1.pt": "a101c5d3eee91df56b14d084c75dfa3529cd9c2959c6215f8552391b6219fb7e",
+    "results/phase_s7/beta_8/checkpoints/r_future/r_future_fold3_best_v1.pt": "5ca63f932fcbd19379e6b15ac466461f014f5d1ba9a952df02376603a816a771",
+    "results/phase_s7/beta_8/checkpoints/r_future/r_future_fold4_best_v1.pt": "b37211a668e42f1f387ff3f3b528960d7377f8c9a636733c6eca955c28e0fe1f",
+    "results/phase_s5/checkpoints/qr_future/qr_future_fold0_best_v1.pt": "821bfba6dc33b2d5295da9e634e5d6a1083bd0d34399de44323ecefbcf594471",
+    "results/phase_s5/checkpoints/qr_future/qr_future_fold1_best_v1.pt": "a3a5e4f806936627481e20d8baa72f0ad66582236c25f4d522de96a88640473b",
+    "results/phase_s5/checkpoints/qr_future/qr_future_fold2_best_v1.pt": "0f65c9199e4d59ff34410e3151289db37b1cf4bb963bd04d946995fef45377f7",
+    "results/phase_s5/checkpoints/qr_future/qr_future_fold3_best_v1.pt": "65cb6272829fb380f33b9643833b21c8132bdb890c5b3b22853953c2deaf7095",
+    "results/phase_s5/checkpoints/qr_future/qr_future_fold4_best_v1.pt": "7e479418c09e449dc00e197796d4621c3f3a3498ebcc9a0c7f636ea0f8e845e4",
+    "results/phase_s7/beta_2/checkpoints/qr_future/qr_future_fold0_best_v1.pt": "1ef6dd1565a7cdbf5bbf380cbf99edac892e870c9c6a8d80062bca011bbb1c78",
+    "results/phase_s7/beta_2/checkpoints/qr_future/qr_future_fold1_best_v1.pt": "8bfacca241f712674ae7200ee2ee2ab92026a664282906602149d087d8eb0825",
+    "results/phase_s7/beta_2/checkpoints/qr_future/qr_future_fold2_best_v1.pt": "b5748a51bdd69fa0ab1a3f1132abd2aedf27f6d2e7968f3b2359b99d865e47b1",
+    "results/phase_s7/beta_2/checkpoints/qr_future/qr_future_fold3_best_v1.pt": "3e67777b8f6e8e3a19f6b322b8b6f02b7c19f028563f8ac8580061e4b2cde807",
+    "results/phase_s7/beta_2/checkpoints/qr_future/qr_future_fold4_best_v1.pt": "1c9441e5c382af72b5fb834e9d7edf93e02551d7cea0188c526d7f7a5e12be4c",
+    "results/phase_s7/beta_4/checkpoints/qr_future/qr_future_fold0_best_v1.pt": "37cd2702aa2ad831b01b3c23a1101952db37f77ffce56ea823ff0e2b66d0489a",
+    "results/phase_s7/beta_4/checkpoints/qr_future/qr_future_fold1_best_v1.pt": "94207223ea52f62f584ac23dbffd23eb5defecb1b6011b678dc5f86c6bdc46a4",
+    "results/phase_s7/beta_4/checkpoints/qr_future/qr_future_fold2_best_v1.pt": "acfb62746a9873ae9391fa1a5a2d6f9fed37ce038618101f3cfc5e0a32802e18",
+    "results/phase_s7/beta_4/checkpoints/qr_future/qr_future_fold3_best_v1.pt": "f191ce1fff89b1f497a92465ccee2ca7ef64ad24ccfd6d3297dbd6309adfc227",
+    "results/phase_s7/beta_4/checkpoints/qr_future/qr_future_fold4_best_v1.pt": "d0355d32f832d003a4e3ab91b4bf8a08f840f2d3935b1c5c1f28c0b4e72dd633",
+    "results/phase_s7/beta_8/checkpoints/qr_future/qr_future_fold0_best_v1.pt": "8a42e30168dbd8a81b6511ecddc188c8c50756265cffcd78d397fe94a83e26a4",
+    "results/phase_s7/beta_8/checkpoints/qr_future/qr_future_fold1_best_v1.pt": "e7040246c630c41e66843a6753c32c03f83c3da30882514cb2a28fc532f41099",
+    "results/phase_s7/beta_8/checkpoints/qr_future/qr_future_fold2_best_v1.pt": "01ac6d5b7b698964e724ccb13ef72c7a5f1839972318abf2d5507710941c2fe3",
+    "results/phase_s7/beta_8/checkpoints/qr_future/qr_future_fold3_best_v1.pt": "688e358bd521f07b4f763cdcaf1aacf176f759ba9c2d7fabd522e9d38a428ae6",
+    "results/phase_s7/beta_8/checkpoints/qr_future/qr_future_fold4_best_v1.pt": "986ea6aaf3ef6449944332606b79f37a178e3745d90d610b4523c269ead1d33f"
+  },
+  "generated_embedding_sha256": {
+    "results/phase_s8/dev_all_query_embeddings_bge_v1.npy": "3110a7800ac0b317ec26b865ec70bf43beb61dff15426056f0ce50bf8e1a3da5",
+    "results/phase_s8/dev_all_gold_embeddings_bge_v1.npy": "4002c07c7295b0fc7d45c03c6a5cc14f24b13a19b226e4e2b734d3566e602a48",
+    "results/phase_s8/dev_all_embedding_manifest_v1.json": "3606d608eea10601bf7b3156c33418be93cb04daf1fa3b499830f70761873c9b"
+  },
+  "checkpoint_spec": {
+    "RANK_ONLY": [
+      {
+        "path": "results/phase_s4/checkpoints/rank_only/rank_only_fold0_best_v1.pt",
+        "sha256": "afb22a916d640eca9001bb5cfb9f4a7bc1e01f34a7099e9da0c5ac2d6f6d2f84"
+      },
+      {
+        "path": "results/phase_s4/checkpoints/rank_only/rank_only_fold1_best_v1.pt",
+        "sha256": "50cae63ab5a768686a083725bf789e623a7fa32f254e8e1a55ed30abca1ff0cf"
+      },
+      {
+        "path": "results/phase_s4/checkpoints/rank_only/rank_only_fold2_best_v1.pt",
+        "sha256": "380191dc3685e3ab6d6664a50b3ebaa4f32ea1eccd3970d692e831086546c26a"
+      },
+      {
+        "path": "results/phase_s4/checkpoints/rank_only/rank_only_fold3_best_v1.pt",
+        "sha256": "2df1be87131655a433ecd5c7b35de50c5977da02fca6a1ad1c8a40c635723d5a"
+      },
+      {
+        "path": "results/phase_s4/checkpoints/rank_only/rank_only_fold4_best_v1.pt",
+        "sha256": "a52794280e4fee537510d92df709baed6b281758d487264d120d7754a4fe2cc4"
+      }
+    ],
+    "R_FUTURE_BETA1": [
+      {
+        "path": "results/phase_s5/checkpoints/r_future/r_future_fold0_best_v1.pt",
+        "sha256": "21c5c42d13415c2ee4d16a26a9fa0fe03c56d467e6947217f3d02fdafff52546"
+      },
+      {
+        "path": "results/phase_s5/checkpoints/r_future/r_future_fold1_best_v1.pt",
+        "sha256": "f5728f8abbd2bfff2a5124ca8af72aa2a9010662aaeb2ee54e69100fc4db9561"
+      },
+      {
+        "path": "results/phase_s5/checkpoints/r_future/r_future_fold2_best_v1.pt",
+        "sha256": "dd87539e2713c4a57400da8c3779a4fd754addcb0f198aa895b62f693c0811aa"
+      },
+      {
+        "path": "results/phase_s5/checkpoints/r_future/r_future_fold3_best_v1.pt",
+        "sha256": "f7515499e29a1a8b3928659ab793f80d1e7131e0b56f6c830f9bcc231264c5ba"
+      },
+      {
+        "path": "results/phase_s5/checkpoints/r_future/r_future_fold4_best_v1.pt",
+        "sha256": "2c2eb415e6e182e602072de5f43c0c3dd1517706432085eaa5b10211ec55ef09"
+      }
+    ],
+    "R_FUTURE_BETA2": [
+      {
+        "path": "results/phase_s7/beta_2/checkpoints/r_future/r_future_fold0_best_v1.pt",
+        "sha256": "b14edfacfc5b5df4ebee3738de5053a52bd5e219843714069af75769440c0e71"
+      },
+      {
+        "path": "results/phase_s7/beta_2/checkpoints/r_future/r_future_fold1_best_v1.pt",
+        "sha256": "00e10cccb770a382b2e8dd6511b1b80484d6739fbb4e6bba86ceabed6780cc18"
+      },
+      {
+        "path": "results/phase_s7/beta_2/checkpoints/r_future/r_future_fold2_best_v1.pt",
+        "sha256": "1814249429bb05b00f621ffaf3363b4aef7f7869373424059f1b26e46af54e70"
+      },
+      {
+        "path": "results/phase_s7/beta_2/checkpoints/r_future/r_future_fold3_best_v1.pt",
+        "sha256": "0911a7d1ab96e0a1a473962822297a2a998dda790ad8cade7615209faa1a4bbf"
+      },
+      {
+        "path": "results/phase_s7/beta_2/checkpoints/r_future/r_future_fold4_best_v1.pt",
+        "sha256": "747d14122be90b6a7c47c4b3796c8e68566fae6abcbbb389bd249bb614cb61cc"
+      }
+    ],
+    "R_FUTURE_BETA4": [
+      {
+        "path": "results/phase_s7/beta_4/checkpoints/r_future/r_future_fold0_best_v1.pt",
+        "sha256": "fbd29596af111b33087c86402f9488ea722fcd15c82d76c4af87b02b0714ad71"
+      },
+      {
+        "path": "results/phase_s7/beta_4/checkpoints/r_future/r_future_fold1_best_v1.pt",
+        "sha256": "c017d9ee74805014be96a159e914e66c37a9f3e5161d200605cf70fa1000909d"
+      },
+      {
+        "path": "results/phase_s7/beta_4/checkpoints/r_future/r_future_fold2_best_v1.pt",
+        "sha256": "606b533ff2eb4bc5933021bdc6a9641a5f2fa0f5e3c928d5c60cb59bb0994f46"
+      },
+      {
+        "path": "results/phase_s7/beta_4/checkpoints/r_future/r_future_fold3_best_v1.pt",
+        "sha256": "d8d48ded5d21b4f1c0f5898796d4773a1e8d74654d80ba134e112cdbf877eba3"
+      },
+      {
+        "path": "results/phase_s7/beta_4/checkpoints/r_future/r_future_fold4_best_v1.pt",
+        "sha256": "e538b23bf60e275cb2143a1e2f9ee1b1557cf1232cc4280cd8a7d7588bd4368a"
+      }
+    ],
+    "R_FUTURE_BETA8": [
+      {
+        "path": "results/phase_s7/beta_8/checkpoints/r_future/r_future_fold0_best_v1.pt",
+        "sha256": "814cd4439a1944ece38a1ff7f0cd0112a947ae1222ac93d57238b52e7004fd99"
+      },
+      {
+        "path": "results/phase_s7/beta_8/checkpoints/r_future/r_future_fold1_best_v1.pt",
+        "sha256": "9ea472d0f694b520b8e64ea784779f0327401aca09c1e2779b2bbe27ed3b64c0"
+      },
+      {
+        "path": "results/phase_s7/beta_8/checkpoints/r_future/r_future_fold2_best_v1.pt",
+        "sha256": "a101c5d3eee91df56b14d084c75dfa3529cd9c2959c6215f8552391b6219fb7e"
+      },
+      {
+        "path": "results/phase_s7/beta_8/checkpoints/r_future/r_future_fold3_best_v1.pt",
+        "sha256": "5ca63f932fcbd19379e6b15ac466461f014f5d1ba9a952df02376603a816a771"
+      },
+      {
+        "path": "results/phase_s7/beta_8/checkpoints/r_future/r_future_fold4_best_v1.pt",
+        "sha256": "b37211a668e42f1f387ff3f3b528960d7377f8c9a636733c6eca955c28e0fe1f"
+      }
+    ],
+    "QR_FUTURE_BETA1": [
+      {
+        "path": "results/phase_s5/checkpoints/qr_future/qr_future_fold0_best_v1.pt",
+        "sha256": "821bfba6dc33b2d5295da9e634e5d6a1083bd0d34399de44323ecefbcf594471"
+      },
+      {
+        "path": "results/phase_s5/checkpoints/qr_future/qr_future_fold1_best_v1.pt",
+        "sha256": "a3a5e4f806936627481e20d8baa72f0ad66582236c25f4d522de96a88640473b"
+      },
+      {
+        "path": "results/phase_s5/checkpoints/qr_future/qr_future_fold2_best_v1.pt",
+        "sha256": "0f65c9199e4d59ff34410e3151289db37b1cf4bb963bd04d946995fef45377f7"
+      },
+      {
+        "path": "results/phase_s5/checkpoints/qr_future/qr_future_fold3_best_v1.pt",
+        "sha256": "65cb6272829fb380f33b9643833b21c8132bdb890c5b3b22853953c2deaf7095"
+      },
+      {
+        "path": "results/phase_s5/checkpoints/qr_future/qr_future_fold4_best_v1.pt",
+        "sha256": "7e479418c09e449dc00e197796d4621c3f3a3498ebcc9a0c7f636ea0f8e845e4"
+      }
+    ],
+    "QR_FUTURE_BETA2": [
+      {
+        "path": "results/phase_s7/beta_2/checkpoints/qr_future/qr_future_fold0_best_v1.pt",
+        "sha256": "1ef6dd1565a7cdbf5bbf380cbf99edac892e870c9c6a8d80062bca011bbb1c78"
+      },
+      {
+        "path": "results/phase_s7/beta_2/checkpoints/qr_future/qr_future_fold1_best_v1.pt",
+        "sha256": "8bfacca241f712674ae7200ee2ee2ab92026a664282906602149d087d8eb0825"
+      },
+      {
+        "path": "results/phase_s7/beta_2/checkpoints/qr_future/qr_future_fold2_best_v1.pt",
+        "sha256": "b5748a51bdd69fa0ab1a3f1132abd2aedf27f6d2e7968f3b2359b99d865e47b1"
+      },
+      {
+        "path": "results/phase_s7/beta_2/checkpoints/qr_future/qr_future_fold3_best_v1.pt",
+        "sha256": "3e67777b8f6e8e3a19f6b322b8b6f02b7c19f028563f8ac8580061e4b2cde807"
+      },
+      {
+        "path": "results/phase_s7/beta_2/checkpoints/qr_future/qr_future_fold4_best_v1.pt",
+        "sha256": "1c9441e5c382af72b5fb834e9d7edf93e02551d7cea0188c526d7f7a5e12be4c"
+      }
+    ],
+    "QR_FUTURE_BETA4": [
+      {
+        "path": "results/phase_s7/beta_4/checkpoints/qr_future/qr_future_fold0_best_v1.pt",
+        "sha256": "37cd2702aa2ad831b01b3c23a1101952db37f77ffce56ea823ff0e2b66d0489a"
+      },
+      {
+        "path": "results/phase_s7/beta_4/checkpoints/qr_future/qr_future_fold1_best_v1.pt",
+        "sha256": "94207223ea52f62f584ac23dbffd23eb5defecb1b6011b678dc5f86c6bdc46a4"
+      },
+      {
+        "path": "results/phase_s7/beta_4/checkpoints/qr_future/qr_future_fold2_best_v1.pt",
+        "sha256": "acfb62746a9873ae9391fa1a5a2d6f9fed37ce038618101f3cfc5e0a32802e18"
+      },
+      {
+        "path": "results/phase_s7/beta_4/checkpoints/qr_future/qr_future_fold3_best_v1.pt",
+        "sha256": "f191ce1fff89b1f497a92465ccee2ca7ef64ad24ccfd6d3297dbd6309adfc227"
+      },
+      {
+        "path": "results/phase_s7/beta_4/checkpoints/qr_future/qr_future_fold4_best_v1.pt",
+        "sha256": "d0355d32f832d003a4e3ab91b4bf8a08f840f2d3935b1c5c1f28c0b4e72dd633"
+      }
+    ],
+    "QR_FUTURE_BETA8": [
+      {
+        "path": "results/phase_s7/beta_8/checkpoints/qr_future/qr_future_fold0_best_v1.pt",
+        "sha256": "8a42e30168dbd8a81b6511ecddc188c8c50756265cffcd78d397fe94a83e26a4"
+      },
+      {
+        "path": "results/phase_s7/beta_8/checkpoints/qr_future/qr_future_fold1_best_v1.pt",
+        "sha256": "e7040246c630c41e66843a6753c32c03f83c3da30882514cb2a28fc532f41099"
+      },
+      {
+        "path": "results/phase_s7/beta_8/checkpoints/qr_future/qr_future_fold2_best_v1.pt",
+        "sha256": "01ac6d5b7b698964e724ccb13ef72c7a5f1839972318abf2d5507710941c2fe3"
+      },
+      {
+        "path": "results/phase_s7/beta_8/checkpoints/qr_future/qr_future_fold3_best_v1.pt",
+        "sha256": "688e358bd521f07b4f763cdcaf1aacf176f759ba9c2d7fabd522e9d38a428ae6"
+      },
+      {
+        "path": "results/phase_s7/beta_8/checkpoints/qr_future/qr_future_fold4_best_v1.pt",
+        "sha256": "986ea6aaf3ef6449944332606b79f37a178e3745d90d610b4523c269ead1d33f"
+      }
+    ]
+  },
+  "dataset": {
+    "dev_all_path": "data/splits/psydial_targets_dev_all.jsonl",
+    "dev_all_rows": 9070,
+    "dev_long20_path": "data/splits/psydial_targets_dev_long20.jsonl",
+    "dev_long20_rows": 4375,
+    "dev_long20_is_subset_of_dev_all_by_sample_id": true,
+    "gold_coverage_diagnostic": {
+      "dev_rows": 9070,
+      "gold_row_coverage_n": 250,
+      "gold_row_coverage_rate": 0.027563395810363836,
+      "unique_gold_n": 8965,
+      "unique_gold_covered_n": 148,
+      "unique_gold_coverage_rate": 0.016508644729503624
+    }
+  },
+  "candidate_construction": {
+    "base_candidate_pool": "61,502 unique normalized TRAIN counselor responses",
+    "candidate_identity_normalization": {
+      "unicode_normalization": "NFKC",
+      "strip_leading_trailing_whitespace": true,
+      "collapse_internal_whitespace": true,
+      "lowercase": false,
+      "remove_punctuation": false
+    },
+    "per_query_rule": "Exclude any TRAIN candidate whose normalized text equals this query's Gold answer, then add exactly one encoded Gold answer as the positive candidate.",
+    "candidate_count": "61,502 when Gold matches a TRAIN response identity; otherwise 61,503",
+    "same_normalized_gold_excluded_from_negatives": true,
+    "candidate_pool_is_query_specific_due_to_gold_injection": true,
+    "interpretation_limit": "This is Gold-injected candidate-set ranking generalization, not retrieval coverage over the TRAIN response library alone."
+  },
+  "conditions": [
+    "DENSE_BGE",
+    "RANK_ONLY",
+    "R_FUTURE_BETA1",
+    "R_FUTURE_BETA2",
+    "R_FUTURE_BETA4",
+    "R_FUTURE_BETA8",
+    "QR_FUTURE_BETA1",
+    "QR_FUTURE_BETA2",
+    "QR_FUTURE_BETA4",
+    "QR_FUTURE_BETA8"
+  ],
+  "ensemble": {
+    "folds": 5,
+    "aggregation": "Arithmetic mean of the five fold models' raw ranking scores before rank computation",
+    "checkpoint_selection": "Use the already promoted best_v1 checkpoint for each fold; no retraining or reselection"
+  },
+  "metrics": {
+    "primary": "Dialogue-macro MRR, R@1, R@5, R@10, R@20",
+    "aggregation": "Average query metric within each dialogue, then unweighted mean across dialogues",
+    "uncertainty": "2000 paired cluster bootstrap replicates resampling dialogues with replacement; seed=20261027",
+    "score_ties": "Conservative deterministic tie rule: all negative candidates with score >= Gold score are ranked before Gold",
+    "contrasts": "Paired dialogue-cluster bootstrap contrasts against DENSE_BGE and RANK_ONLY"
+  },
+  "future_state_metrics": {
+    "computed": false,
+    "reason": "The frozen Dev target files contain no future_value_label or future_value_available fields."
+  },
+  "dev_payload_used": true,
+  "test_payload_used": false,
+  "training_data_or_checkpoints_modified": false,
+  "posthoc_success_gate": false,
+  "output_paths": {
+    "summary": "results/phase_s8/s8_dev_retrieval_summary_v1.json",
+    "predictions": "results/phase_s8/s8_dev_retrieval_predictions_v1.npz",
+    "report": "results/phase_s8/s8_dev_retrieval_report_v1.txt"
+  }
+}

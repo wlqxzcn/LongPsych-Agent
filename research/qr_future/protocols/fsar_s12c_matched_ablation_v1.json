@@ -1,0 +1,143 @@
+{
+  "artifact": "FSAR S12C Matched Ranking Interaction Ablation V1",
+  "status": "FROZEN_BEFORE_TRAINING",
+  "experiment_scope": "TRAIN_INTERNAL_OOF_ONLY",
+  "purpose": "Evaluate the contribution of query-response product interaction to ranking under matched initial ranking functions.",
+  "source_artifacts": {
+    "s12c_model": "src/models/s12c_matched_ablation_models.py",
+    "s12c_model_sha256": "be4db64f5203830e742d9bc078900d106769b4b6380a1de95ca77c542521f99c",
+    "reference_s12b_model_sha256": "10878111132b0e9ec46032c4bcd3e613e6a0a0742b561776bee34a0dc6c8ca4f",
+    "reference_s12b_script_sha256": "53a8dbf9c221d6727b0df5e496efa27e733d06937b0c6d3ea586a2859e7230f3",
+    "reference_s12b_protocol_sha256": "b9edb00d1860e0acbe52d76db54fa5c343c79afec4f3bf5eb6444cca0649f974"
+  },
+  "ranking_architecture": {
+    "FULL": {
+      "features": [
+        "z_q",
+        "z_r",
+        "abs(z_q-z_r)",
+        "z_q*z_r"
+      ],
+      "rank_input_dimension": 4096,
+      "product_interaction": true
+    },
+    "NO_PRODUCT": {
+      "features": [
+        "z_q",
+        "z_r",
+        "abs(z_q-z_r)"
+      ],
+      "rank_input_dimension": 3072,
+      "product_interaction": false
+    },
+    "initialization": {
+      "query_adapter": "zero",
+      "response_adapter": "zero",
+      "rank_head_weights": "zero",
+      "absolute_difference_weights": "-1/sqrt(1024)",
+      "initial_ranking_function": "-L1(z_q,z_r)/sqrt(1024)",
+      "initial_ranking_function_matched": true,
+      "parameter_count_matched": false
+    },
+    "matching_scope": "Identical initial ranking function; not parameter-count matching."
+  },
+  "conditions": {
+    "R_FUTURE_FULL": {
+      "class": "RFutureFullMatchedModel",
+      "ranking_product": true
+    },
+    "R_FUTURE_NO_PRODUCT": {
+      "class": "RFutureNoProductMatchedModel",
+      "ranking_product": false
+    },
+    "QR_FUTURE_FULL": {
+      "class": "QRFutureFullMatchedModel",
+      "ranking_product": true
+    },
+    "QR_FUTURE_NO_PRODUCT": {
+      "class": "QRFutureNoProductMatchedModel",
+      "ranking_product": false
+    }
+  },
+  "auxiliary_branch_control": {
+    "R_FUTURE": "Same response-only future branch in both conditions.",
+    "QR_FUTURE": "Query-response product remains in the auxiliary future branch in both conditions.",
+    "ablation_scope": "Ranking branch only."
+  },
+  "training": {
+    "reference": "S12B five-fold training protocol",
+    "beta": 8,
+    "loss": "ranking_loss + 8 * future_loss",
+    "optimizer": "Adam",
+    "learning_rate": 0.0001,
+    "batch_size": 128,
+    "max_epochs": 20,
+    "seed": 42,
+    "folds": 5,
+    "weight_decay": 0.0,
+    "checkpoint_selection": "MIN_VALIDATION_RANKING_CROSS_ENTROPY",
+    "initialization": "Inherit S12B seed-reset and initialization procedure."
+  },
+  "inherited_training_dependencies": {
+    "query_embedding": "18aa1ed637bef3980775c10d96d1cde6112863b0c5761e2e69fb7ab89c981005",
+    "response_embedding": "7a4ee8d462adce73174c853bf21b758132f5243020fa6253b1c01a99973bc96f",
+    "master": "d9196a5ea11a9433c0550db6ebcfce76a6965ebec14ae9e3fb6660cc1e6ab3be",
+    "fold": "a4f129fb6b5e5d23aad4215d261d33e4be2dc1ff34f8dcb7e4f0c92d430bcdf9",
+    "future_mask": "84ee56cf9549a9842dc717bfd6a8a3cad41c457298356a8796dbfbe7a9b85a3d",
+    "reservoir": "e122dfe8f2c4eb8902068090d5852c79317641ea850720d58e4d4f4133474ab0",
+    "model_code": "10878111132b0e9ec46032c4bcd3e613e6a0a0742b561776bee34a0dc6c8ca4f",
+    "architecture_protocol": "b9edb00d1860e0acbe52d76db54fa5c343c79afec4f3bf5eb6444cca0649f974",
+    "training_protocol": "e30ca60f61d12ac0b291a473a656eed326b24cee1d324f06c21623bfc4d0d51e",
+    "s5_protocol": "33dd9bfd795300a73e1450a9278d06ae75809a992f504eaffe96fc28f97e0882",
+    "s7_protocol": "6f3924f74a1b3168ea6b75f7f2383ce41b0b2715c236b66ec53f38341edcb23d",
+    "s4_summary": "be30581e5804c9b7368ed3f23037f79dc78b53659e3ca9abde63a2e4387de6d0",
+    "s4_oof": "fbcb8947ebf72b1364e535a15872ac3415fdb56959b5f00091c464a75fc092f4"
+  },
+  "data": {
+    "ranking_rows": 62889,
+    "unique_responses": 61502,
+    "candidates_per_query": 101,
+    "future_available_rows": 17458,
+    "dialogues": 1666,
+    "future_available_dialogues": 1653,
+    "split_unit": "dialogue"
+  },
+  "evaluation": {
+    "internal_oof": true,
+    "dev_payload_used_during_training": false,
+    "test_payload_used_during_training": false,
+    "training_metrics_used_for_model_selection": "validation ranking cross entropy only",
+    "status": "EXPLORATORY_NO_CONFIRMATORY_GATE",
+    "primary_retrieval_metric": "MRR",
+    "retrieval_metrics": [
+      "R@1",
+      "R@5",
+      "R@10",
+      "R@20"
+    ],
+    "future_metrics": [
+      "accuracy",
+      "macro_f1",
+      "balanced_accuracy",
+      "weighted_f1",
+      "ordinal_mae",
+      "brier",
+      "ordinal_logloss",
+      "expected_state_mae",
+      "threshold_accuracy"
+    ]
+  },
+  "planned_contrasts": {
+    "R_FUTURE": "R_NO_PRODUCT - R_FULL",
+    "QR_FUTURE": "QR_NO_PRODUCT - QR_FULL",
+    "difference_in_differences": "(QR_NO_PRODUCT - QR_FULL) - (R_NO_PRODUCT - R_FULL)"
+  },
+  "output_policy": {
+    "directory": "results/phase_s12c",
+    "training_script": "src/training/s12c_train_matched_ablation_beta8_5fold.py",
+    "preserve_s7": true,
+    "preserve_s12b": true,
+    "atomic_promotion": true,
+    "overwrite_existing": false
+  }
+}

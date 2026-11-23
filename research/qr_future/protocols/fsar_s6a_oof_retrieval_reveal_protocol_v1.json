@@ -1,0 +1,112 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S6-A",
+  "artifact": "FSAR S6-A Unified OOF Retrieval Reveal Protocol V1",
+  "status": "FROZEN_BEFORE_FIRST_RETRIEVAL_METRIC_COMPUTATION",
+
+  "scope": "TRAIN_INTERNAL_OOF_ONLY",
+
+  "evaluation_task": {
+    "type": "CANDIDATE_CONDITIONED_RERANKING",
+    "queries": 62889,
+    "dialogues": 1666,
+    "candidate_set_per_query": 101,
+    "candidate_composition": "1_GOLD_PLUS_FROZEN_DENSE_TOP100_NON_GOLD",
+    "not_end_to_end_full_corpus_retrieval": true
+  },
+
+  "conditions": [
+    "DENSE_101",
+    "RANK_ONLY",
+    "R_FUTURE",
+    "QR_FUTURE"
+  ],
+
+  "condition_definition": {
+    "DENSE_101": "Frozen BGE cosine score on the identical 101-candidate reranking set.",
+    "RANK_ONLY": "S4 frozen OOF ranking scores.",
+    "R_FUTURE": "S5 frozen R-Future OOF ranking scores.",
+    "QR_FUTURE": "S5 frozen QR-Future OOF ranking scores."
+  },
+
+  "rank_definition": {
+    "primary_rank": "1 + COUNT(candidate_score > gold_score)",
+    "tie_policy": "STRICT_GREATER",
+    "gold_position": 0,
+    "tie_diagnostics_reported": true
+  },
+
+  "primary_metric": {
+    "name": "MRR",
+    "aggregation": "DIALOGUE_MACRO",
+    "dialogue_metric": "Mean reciprocal rank across all queries within each dialogue.",
+    "overall_metric": "Unweighted mean across dialogues."
+  },
+
+  "secondary_metrics": [
+    "R@1",
+    "R@5",
+    "R@10",
+    "R@20"
+  ],
+
+  "secondary_metric_aggregation": [
+    "DIALOGUE_MACRO",
+    "QUERY_MICRO_DESCRIPTIVE"
+  ],
+
+  "confirmatory_contrast": {
+    "name": "QR_FUTURE_MINUS_RANK_ONLY",
+    "metric": "DIALOGUE_MACRO_MRR",
+    "success_gate": "LOWER_BOUND_OF_95_PERCENT_PAIRED_DIALOGUE_BOOTSTRAP_CI_GT_0"
+  },
+
+  "mechanism_contrasts": [
+    {
+      "name": "R_FUTURE_MINUS_RANK_ONLY",
+      "interpretation": "Response-level prospective regularization."
+    },
+    {
+      "name": "QR_FUTURE_MINUS_R_FUTURE",
+      "interpretation": "Additional query-conditioned prospective interaction."
+    }
+  ],
+
+  "baseline_contrast": {
+    "name": "RANK_ONLY_MINUS_DENSE_101",
+    "interpretation": "Learned reranker gain over its frozen Dense initialization on the same candidate set."
+  },
+
+  "bootstrap": {
+    "unit": "dialogue_id",
+    "paired": true,
+    "replicates": 5000,
+    "seed": 42,
+    "ci": 0.95,
+    "method": "PERCENTILE",
+    "same_resampled_dialogues_for_all_conditions": true
+  },
+
+  "multiplicity": {
+    "number_of_confirmatory_primary_contrasts": 1,
+    "primary_multiplicity_correction": "NOT_REQUIRED",
+    "mechanism_contrasts": "SECONDARY_DIAGNOSTIC"
+  },
+
+  "future_metrics_computed_in_s6a": false,
+
+  "dev_payload_used": false,
+  "test_payload_used": false,
+
+  "no_posthoc_metric_selection": true,
+  "no_posthoc_success_gate_change": true,
+
+  "frozen_input_sha256": {
+    "master": "d9196a5ea11a9433c0550db6ebcfce76a6965ebec14ae9e3fb6660cc1e6ab3be",
+    "fold_assignment": "a4f129fb6b5e5d23aad4215d261d33e4be2dc1ff34f8dcb7e4f0c92d430bcdf9",
+    "reservoir": "e122dfe8f2c4eb8902068090d5852c79317641ea850720d58e4d4f4133474ab0",
+    "rank_only_oof": "fbcb8947ebf72b1364e535a15872ac3415fdb56959b5f00091c464a75fc092f4",
+    "r_future_oof": "12deca452373075b19b3699d037578c049d74cb7f49bdc88aebb36e42e9d4ecc",
+    "qr_future_oof": "8928ebb960bc6eb821f7419e188b83bdd306be1dfcbf96764b35381f633ad376"
+  }
+}

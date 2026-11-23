@@ -1,0 +1,47 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S3-C0",
+  "artifact": "FSAR S3-C0 Cross-Fold Response Identity Control V1",
+  "status": "FROZEN_BEFORE_AUDIT",
+
+  "scope": "TRAIN_ONLY",
+
+  "internal_split": {
+    "n_folds": 5,
+    "group": "dialogue_id",
+    "seed": 42
+  },
+
+  "candidate_corpus_policy": {
+    "candidate_corpus": "GLOBAL_TRAIN_RESPONSE_CORPUS",
+    "candidate_identity": "UNIQUE_NORMALIZED_RESPONSE",
+    "validation_response_texts_removed_from_candidate_corpus": false,
+    "reason": "The retrieval corpus itself is TRAIN-only and is considered an indexed corpus available to all internal query folds. Ranking supervision remains query-specific."
+  },
+
+  "ranking_loss_policy": {
+    "training_queries": "fold_id != validation_fold",
+    "validation_queries": "fold_id == validation_fold",
+    "top100_negative_reservoir_unchanged": true,
+    "cross_fold_response_identity_allowed_as_ranking_candidate": true
+  },
+
+  "future_loss_identity_control": {
+    "enabled": true,
+    "rule": "For validation fold f, mask future auxiliary loss on any training factual pair whose gold response identity occurs as a gold response in fold f.",
+    "ranking_loss_for_masked_rows": "RETAIN",
+    "future_loss_for_masked_rows": "MASK",
+    "negative_future_state_labels": "FORBIDDEN"
+  },
+
+  "future_label_merging": false,
+  "class_weight_rescue": false,
+
+  "required_post_mask_gate": "Each ordinal threshold must retain both binary classes in every training fold.",
+
+  "model_training_performed": false,
+  "model_architecture_frozen": false,
+
+  "dev_payload_used": false,
+  "test_payload_used": false
+}

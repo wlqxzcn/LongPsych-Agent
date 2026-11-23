@@ -1,0 +1,51 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S2",
+  "artifact": "FSAR S2 TRAIN Candidate Universe Protocol V1",
+  "status": "FROZEN_BEFORE_DENSE_MINING",
+
+  "candidate_source": "TRAIN_ONLY",
+
+  "authoritative_text_source": "data/canonical/psydial_dialogues.jsonl",
+
+  "response_identity_normalization": {
+    "unicode_normalization": "NFKC",
+    "strip_leading_trailing_whitespace": true,
+    "collapse_internal_whitespace": true,
+    "lowercase": false,
+    "remove_punctuation": false
+  },
+
+  "candidate_unit": "UNIQUE_NORMALIZED_RESPONSE",
+
+  "expected_train_response_occurrences": 62889,
+  "expected_unique_normalized_responses": 61502,
+
+  "duplicate_occurrences_are_not_separate_candidates": true,
+
+  "gold_mapping": "Each TRAIN pair maps its counselor response to exactly one normalized response_uid.",
+
+  "negative_exclusion_rule": [
+    "Exclude the gold response_uid.",
+    "Exclude every occurrence that normalizes to the gold response text."
+  ],
+
+  "same_dialogue_candidate_exclusion": false,
+
+  "reason_same_dialogue_not_excluded": "The retrieval task is fixed-pool response selection. Same-dialogue non-gold responses remain legitimate non-gold candidates; no psychological incorrectness is assumed.",
+
+  "negative_semantics": "NON_GOLD_CANDIDATE_NOT_CLINICALLY_WRONG",
+
+  "future_state_label_for_negative_candidates": "FORBIDDEN",
+
+  "dense_encoder": "BAAI/bge-large-zh-v1.5",
+  "dense_encoder_frozen": true,
+
+  "dev_payload_used": false,
+  "test_payload_used": false,
+
+  "hard_negative_count": "NOT_YET_FROZEN",
+  "hard_negative_rank_depth": "NOT_YET_FROZEN",
+
+  "next_gate": "Candidate universe and gold mapping must pass exact structural audit before any embedding or dense mining."
+}

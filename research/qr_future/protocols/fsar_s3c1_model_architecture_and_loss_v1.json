@@ -1,0 +1,124 @@
+{
+  "project": "PsychResponse_FSAR",
+  "phase": "S3-C1",
+  "artifact": "FSAR S3-C1 Model Architecture and Loss Protocol V1",
+  "status": "FROZEN_BEFORE_ANY_RERANKER_TRAINING",
+
+  "scope": "TRAIN_ONLY",
+
+  "encoder": {
+    "source": "FROZEN_BGE_EMBEDDING_CACHE",
+    "dimension": 1024,
+    "encoder_trainable": false
+  },
+
+  "shared_ranker": {
+    "query_adapter": {
+      "type": "ResidualLinear",
+      "input_dimension": 1024,
+      "output_dimension": 1024,
+      "bias": false,
+      "initialization": "ZERO"
+    },
+
+    "response_adapter": {
+      "type": "ResidualLinear",
+      "input_dimension": 1024,
+      "output_dimension": 1024,
+      "bias": false,
+      "initialization": "ZERO"
+    },
+
+    "post_adapter_l2_normalization": true,
+
+    "interaction": [
+      "z_q",
+      "z_r",
+      "abs(z_q-z_r)",
+      "z_q*z_r"
+    ],
+
+    "interaction_dimension": 4096,
+
+    "rank_head": {
+      "type": "Linear",
+      "input_dimension": 4096,
+      "output_dimension": 1,
+      "bias": false,
+      "initialization": "EXACT_DENSE_COSINE"
+    },
+
+    "dropout": false,
+    "hidden_mlp": false,
+    "temperature": null
+  },
+
+  "models": {
+    "RANK_ONLY": {
+      "ranking_loss": true,
+      "future_loss": false
+    },
+
+    "R_FUTURE": {
+      "ranking_loss": true,
+      "future_loss": true,
+      "future_feature": "[z_r; zeros_like(z_r)]"
+    },
+
+    "QR_FUTURE": {
+      "ranking_loss": true,
+      "future_loss": true,
+      "future_feature": "[z_r; z_q*z_r]"
+    }
+  },
+
+  "future_head": {
+    "input_dimension": 2048,
+    "output_dimension": 4,
+    "same_architecture_for_R_and_QR": true,
+    "type": "Linear",
+    "thresholds": [-2, -1, 0, 1],
+    "targets": "I(value_label > threshold)",
+    "loss": "BCEWithLogits",
+    "threshold_loss_reduction": "MEAN",
+    "monotonic_projection": false,
+    "isotonic_regression": false
+  },
+
+  "ranking_loss": {
+    "type": "LISTWISE_SOFTMAX_CROSS_ENTROPY",
+    "candidates_per_query": 101,
+    "gold_position": "KNOWN_FROM_DATA_STRUCTURE",
+    "negative_candidates": 100,
+    "negative_sampling": "NONE"
+  },
+
+  "joint_loss": {
+    "beta": null,
+    "beta_search": false,
+    "formula": "mean_query(rank_loss) + mean_over_all_queries(future_eligibility_mask * mean_threshold_BCE)",
+    "future_oversampling": false,
+    "future_class_weight": false
+  },
+
+  "future_loss_policy": {
+    "factual_gold_pair_only": true,
+    "negative_future_labels": false,
+    "fold_specific_identity_mask": "fsar_s3c0_future_loss_eligibility_by_fold_v1.npz"
+  },
+
+  "inference": {
+    "future_head_used": false,
+    "future_state_prediction_added_to_rank_score": false,
+    "ranking_score_only": true
+  },
+
+  "optimizer": "NOT_YET_FROZEN",
+  "learning_rate": "NOT_YET_FROZEN",
+  "batch_size": "NOT_YET_FROZEN",
+  "epoch_policy": "NOT_YET_FROZEN",
+
+  "model_training_performed": false,
+  "dev_payload_used": false,
+  "test_payload_used": false
+}

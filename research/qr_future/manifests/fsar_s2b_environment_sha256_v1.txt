@@ -1,0 +1,2 @@
+e6d05ef775e8b9a06f680d57109d26bddbe23445899dd7f6dde00c60c86527ed  manifests/fsar_s2b_runtime_environment_v1.json
+5199592e141a5e22e4809b91166745383d84fcd93de37ed8323bfd38f297129c  manifests/fsar_s2b_pip_freeze_v1.txt
