@@ -22,8 +22,8 @@ import torch
 
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT))
-DEV_SCRIPT = ROOT / "src/evaluation/ORCA_FSAR_DEV_Evaluation_v2.py"
-TEST_BASE_SCRIPT = ROOT / "src/evaluation/s12c_external_test_evaluation.py"
+DEV_SCRIPT = ROOT / "research/qr_future/src/evaluation/ORCA_FSAR_DEV_Evaluation_v2.py"
+TEST_BASE_SCRIPT = ROOT / "research/qr_future/src/evaluation/s12c_external_test_evaluation.py"
 
 OUT = ROOT / "results/phase_s12c/step_2f18t_orca_fsar_test_evaluation_v1"
 PROTOCOL = OUT / "test_evaluation_protocol_v1.json"
@@ -290,7 +290,16 @@ def prepare():
     for name, path in source_paths(dev, test_base).items():
         if not path.is_file():
             raise FileNotFoundError(f"Missing source {name}: {path}")
-        hashes[name] = {"path": str(path.relative_to(ROOT)), "sha256": sha(path)}
+        resolved_path = path.resolve()
+        try:
+            stored_path = str(resolved_path.relative_to(ROOT.resolve()))
+        except ValueError:
+            stored_path = str(resolved_path)
+
+        hashes[name] = {
+            "path": stored_path,
+            "sha256": sha(resolved_path),
+        }
 
     protocol = {
         "artifact": "ORCA-FSAR S12C External Test Top100 Matched Evaluation Protocol V1",

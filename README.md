@@ -1,92 +1,85 @@
-# LongPsych-Agent
+# LongPsychAgent QR-Future Retrieval Pipeline V1
 
-**面向长程心理会话的语义增强检索与智能体系统**
+This is a non-invasive integration layer. It adds new files only and does not
+modify the existing Dense / ORCA retriever or the QR-Future scorer.
 
-LongPsych-Agent focuses on semantic-enhanced retrieval for long-term
-psychological dialogue.
+## Retrieval modes
 
-## Research Modules
+- `dense`: existing Dense BGE retrieval.
+- `orca`: existing global ORCA k=2 retrieval.
+- `qr_future`: Dense BGE candidate recall (default top-100) followed by the
+  frozen five-fold QR-Future FULL ranking model.
 
-### 1. ORCA
+The QR-Future model was trained with a Dense top-100 candidate reservoir, so
+V1 preserves Dense candidate recall for the QR-Future mode. ORCA remains
+available as an independent retrieval mode. This package does not silently
+claim that ORCA-recall -> QR-Future reranking has the same validated candidate
+distribution.
 
-Training-User-Source Common Directions and Inductive Correction
-for Psychological Dialogue Retrieval.
+## Install
 
-Includes:
-- User-source common direction estimation.
-- SVD-based projection and inductive correction.
-- Dense retrieval and FAISS-based evaluation.
-- Competing methods, ablation studies and statistical analysis.
+Clone the repository and enter its root directory:
 
-### 2. QR-Future
-
-Future-State Auxiliary Regularization for Retrieval Ranking.
-
-Includes:
-- Ranking and future-state auxiliary supervision.
-- R-Future and QR-Future architectures.
-- Five-fold training and out-of-fold evaluation.
-- Matched ablation and component analysis.
-- ORCA-integrated retrieval evaluation.
-
-## Repository Structure
-
-```text
-LongPsych-Agent/
-├── research/
-│   ├── orca/
-│   │   ├── src/
-│   │   ├── commands/
-│   │   ├── tests/
-│   │   └── README.md
-│   └── qr_future/
-│       ├── src/
-│       ├── manifests/
-│       ├── protocols/
-│       └── scripts/
-├── requirements/
-├── docs/
-├── scripts/
-├── tests/
-├── .gitignore
-└── README.md
+```bash
+python -m venv .venv-agent
+source .venv-agent/bin/activate
+# Install the retrieval/runtime stack. Install a CUDA-compatible PyTorch
+# build first if your platform requires a specific wheel.
+python -m pip install -r requirements/requirements-orca.txt
+python -m pip install -r requirements-agent.txt
+python -m pip install -r requirements-mcp.txt
+if [ ! -f .env.agent ]; then cp .env.agent.example .env.agent; fi
+export PYTHONPATH=agent:.
+python -m compileall -q agent/longpsych_agent
+python -m pytest -q tests/agent/test_qr_future_pipeline.py
 ```
 
-## Dependencies
+## Path configuration
 
-Separate environment specifications are provided:
+All default filesystem locations are resolved from the repository root, not from the current terminal directory. Copy `.env.agent.example` to `.env.agent` and adjust only the locations that differ on your machine.
 
-- `requirements/requirements-orca.txt`
-- `requirements/qr-future-environment.txt`
+- `LONGPSYCH_ROOT`: deployment asset root (default: repository root).
+- `LONGPSYCH_MODEL`: BGE model directory. The supplied example uses `../PsychResponse_FSAR/models/BAAI/bge-large-zh-v1___5`.
+- `LONGPSYCH_INDEX_DIR`: Dense/ORCA FAISS indexes (default: `data/indexes`).
+- `LONGPSYCH_SOURCE_ROOT`: original research data/checkpoint root. The supplied example uses `../PsychResponse_FSAR`.
 
-## Data and Model Policy
+All filesystem values in `.env.agent.example` are relative to `LONGPSYCH_ROOT` (which defaults to the repository root). If your model or research checkout is stored elsewhere, change these relative values in `.env.agent`; no source-code edits are needed.
 
-This repository contains research source code and experiment protocols.
+The frozen QR-Future model architecture source is included at `src/models/s12c_matched_ablation_models.py`. Model weights, FAISS indexes, datasets, and training checkpoints are not included in the source archive; place or mount them at the configured locations.
 
-The following artifacts are excluded:
-- Original datasets and dialogue corpora.
-- Pretrained model weights.
-- Embeddings and FAISS indexes.
-- Training checkpoints.
-- Experiment outputs and logs.
-- Private credentials.
+## Real integration smoke test
 
-These artifacts must be prepared locally before reproducing experiments.
+```bash
+PYTHONPATH=agent:. python scripts/agent/smoke_qr_future_pipeline.py   --root .   --device cuda   --candidate-k 100   --top-k 5
+```
 
-## Reproducibility
+The smoke test loads the existing Dense and ORCA FAISS indexes, BGE encoder,
+five QR-Future fold models and their fold-specific Basis files. It then checks
+Dense retrieval, ORCA retrieval, and Dense -> QR-Future end-to-end reranking.
 
-The research code preserves historical experimental implementations,
-protocols and available manifests.
+## Python API
 
-Some experiments depend on frozen private inputs and trained
-checkpoints that are not distributed in this repository.
+```python
+from longpsych_agent.reranking.qr_future_pipeline import (
+    QRFutureRetrievalPipeline,
+)
+from longpsych_agent.config import settings
 
-QR-Future scripts resolve the repository root from their source
-locations. Local-only `data/`, `models/` and `results/` directories
-can be prepared under the repository root.
+pipeline = QRFutureRetrievalPipeline.from_pretrained(
+    model_name_or_path=str(settings.model_path),
+    index_dir=settings.index_dir,
+    qr_future_project_root=settings.root,
+    default_candidate_k=100,
+    device="cuda",
+)
 
-## Project Status
+result = pipeline.search(
+    "最近总是感到焦虑，不知道该怎么办。",
+    top_k=5,
+    mode="qr_future",
+)
+```
 
-Current release: Research code organization for ORCA and QR-Future.
-
-The integrated LongPsych-Agent application layer is under development.
+`qr_future_score` is a raw ranking score, not a probability. The auxiliary
+future head is a training-time regularizer; online reranking uses the model's
+`rank_scores()` output.

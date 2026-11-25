@@ -46,3 +46,38 @@ models/
 !research/qr_future/src/data/*.py
 !research/qr_future/src/models/
 !research/qr_future/src/models/*.py
+.env.agent
+
+# Local Python environments
+.venv*/
+venv*/
+
+# Local backups
+backups/
+*.bak
+*.bak_*
+*.migrated_backup_*
+*.pathfix_backup_*
+
+# Generated distribution archives
+*.zip
+
+# Local development environments
+.venv*/
+venv*/
+
+# Local backups
+backups/
+*.bak*
+
+# Release archives are uploaded through GitHub Releases
+dist/
+*.zip
+
+# Keep real credentials private, but publish the template
+.env.agent
+!.env.agent.example
+
+# Keep root-level model architecture source code
+!src/models/
+!src/models/*.py
