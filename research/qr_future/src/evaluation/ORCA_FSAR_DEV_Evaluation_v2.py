@@ -35,8 +35,13 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-ROOT = Path(__file__).resolve().parents[4]
-sys.path.insert(0, str(ROOT))
+PROJECT_ROOT = Path(__file__).resolve().parents[4]
+sys.path.insert(0, str(PROJECT_ROOT / "agent"))
+
+from longpsych_agent.config import settings
+
+SOURCE_ROOT = settings.source_root
+sys.path.insert(0, str(SOURCE_ROOT))
 
 import src.evaluation.s9_dev_top100_reranking_diagnostic as s9
 

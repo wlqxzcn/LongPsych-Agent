@@ -1,0 +1,286 @@
+{
+  "protocol_id": "FSAR_S12C_EXTERNAL_TEST_V1",
+  "status": "FROZEN",
+  "evaluation_type": "external_test_candidate_set_ranking_generalization",
+  "source_reference": {
+    "s8_script_sha256": "4561d0233d871ef498d36c539bfa2d389764f1967ecaa127ef10a4340f5cac49",
+    "candidate_construction": "S8 parity"
+  },
+  "datasets": {
+    "TEST_ALL": {
+      "rows": 18074,
+      "clean_rows": 18073,
+      "excluded_sample_ids": [
+        "psydial_1012_44"
+      ],
+      "sha256": "f3b7190c735d51666b1035b5724dfb71528d80eb2e6036d244817f783f4788a3"
+    },
+    "TEST_LONG20": {
+      "rows": 8728,
+      "clean_rows": 8727,
+      "definition": "history_pairs >= 20",
+      "also_verified_by": "target_pair_index >= 20",
+      "subset_of": "TEST_ALL",
+      "sha256": "7100328fb3ec9f64735f07b0594be4a899559cf71a1075bc990c2846ab783f53"
+    }
+  },
+  "file_manifest": {
+    "response": {
+      "path": "data/canonical/fsar_s2/train_unique_responses_v1.jsonl",
+      "sha256": "6ed2a5807c7a3bdcb30b7b6b947265129b19925a2cf7e8872fa36231b4cab25e"
+    },
+    "index": {
+      "path": "cache/embeddings/fsar_train_unique_responses_bge_index_v1.jsonl",
+      "sha256": "fd8263c8fd00b4d8d23b915c7f241fb84d1d2ffc7b24c747bf34e4a9b8e47274"
+    },
+    "embedding": {
+      "path": "cache/embeddings/fsar_train_unique_responses_bge_v1.npy",
+      "sha256": "7a4ee8d462adce73174c853bf21b758132f5243020fa6253b1c01a99973bc96f"
+    },
+    "test_all": {
+      "path": "data/splits/psydial_targets_test_all.jsonl",
+      "sha256": "f3b7190c735d51666b1035b5724dfb71528d80eb2e6036d244817f783f4788a3"
+    },
+    "test_long20": {
+      "path": "data/splits/psydial_targets_test_long20.jsonl",
+      "sha256": "7100328fb3ec9f64735f07b0594be4a899559cf71a1075bc990c2846ab783f53"
+    },
+    "s8_script": {
+      "path": "src/evaluation/s8_dev_retrieval_evaluation.py",
+      "sha256": "4561d0233d871ef498d36c539bfa2d389764f1967ecaa127ef10a4340f5cac49"
+    }
+  },
+  "response_library": {
+    "rows": 61502,
+    "unique_normalized": 61502,
+    "empty_response_count": 1,
+    "empty_response_policy": "retain_for_S8_parity",
+    "response_index_alignment": "verified_all_rows",
+    "embedding_shape": [
+      61502,
+      1024
+    ],
+    "embedding_dtype": "float32"
+  },
+  "candidate_construction": {
+    "base_pool": "61502 unique normalized TRAIN responses",
+    "normalization": {
+      "unicode": "NFKC",
+      "strip_whitespace": true,
+      "collapse_internal_whitespace": true,
+      "lowercase": false,
+      "remove_punctuation": false
+    },
+    "rule": "Exclude TRAIN candidate matching normalized Gold, then inject exactly one encoded Gold candidate.",
+    "candidate_count": {
+      "gold_matches_train": 61502,
+      "gold_not_in_train": 61503
+    },
+    "interpretation": "Gold-injected candidate-set ranking generalization, not retrieval coverage over TRAIN library alone."
+  },
+  "conditions": [
+    "DENSE_BGE",
+    "RANK_ONLY",
+    "R_FUTURE_FULL",
+    "R_FUTURE_NO_PRODUCT",
+    "QR_FUTURE_FULL",
+    "QR_FUTURE_NO_PRODUCT"
+  ],
+  "model_class_map": {
+    "RANK_ONLY": "RankOnlyFullMatchedModel",
+    "R_FUTURE_FULL": "RFutureFullMatchedModel",
+    "R_FUTURE_NO_PRODUCT": "RFutureNoProductMatchedModel",
+    "QR_FUTURE_FULL": "QRFutureFullMatchedModel",
+    "QR_FUTURE_NO_PRODUCT": "QRFutureNoProductMatchedModel"
+  },
+  "checkpoint_manifest": [
+    {
+      "condition": "RANK_ONLY",
+      "fold": 0,
+      "path": "results/phase_s4/checkpoints/rank_only/rank_only_fold0_best_v1.pt",
+      "sha256": "afb22a916d640eca9001bb5cfb9f4a7bc1e01f34a7099e9da0c5ac2d6f6d2f84"
+    },
+    {
+      "condition": "RANK_ONLY",
+      "fold": 1,
+      "path": "results/phase_s4/checkpoints/rank_only/rank_only_fold1_best_v1.pt",
+      "sha256": "50cae63ab5a768686a083725bf789e623a7fa32f254e8e1a55ed30abca1ff0cf"
+    },
+    {
+      "condition": "RANK_ONLY",
+      "fold": 2,
+      "path": "results/phase_s4/checkpoints/rank_only/rank_only_fold2_best_v1.pt",
+      "sha256": "380191dc3685e3ab6d6664a50b3ebaa4f32ea1eccd3970d692e831086546c26a"
+    },
+    {
+      "condition": "RANK_ONLY",
+      "fold": 3,
+      "path": "results/phase_s4/checkpoints/rank_only/rank_only_fold3_best_v1.pt",
+      "sha256": "2df1be87131655a433ecd5c7b35de50c5977da02fca6a1ad1c8a40c635723d5a"
+    },
+    {
+      "condition": "RANK_ONLY",
+      "fold": 4,
+      "path": "results/phase_s4/checkpoints/rank_only/rank_only_fold4_best_v1.pt",
+      "sha256": "a52794280e4fee537510d92df709baed6b281758d487264d120d7754a4fe2cc4"
+    },
+    {
+      "condition": "R_FUTURE_FULL",
+      "fold": 0,
+      "path": "results/phase_s12c/checkpoints/r_future_full/r_future_full_fold0_best_v1.pt",
+      "sha256": "b91e8ccc0f3ddb10432037fb635ce40107054ef945d8ce04c8589fa033cc313f"
+    },
+    {
+      "condition": "R_FUTURE_FULL",
+      "fold": 1,
+      "path": "results/phase_s12c/checkpoints/r_future_full/r_future_full_fold1_best_v1.pt",
+      "sha256": "d0c5a3b39db1576d377030eb0cd5dc9c3e470fbb86b4c07d5c9ee19e10a476dd"
+    },
+    {
+      "condition": "R_FUTURE_FULL",
+      "fold": 2,
+      "path": "results/phase_s12c/checkpoints/r_future_full/r_future_full_fold2_best_v1.pt",
+      "sha256": "0fc5589c200570bfec4eb30a65c7e04302fa60a63fc16bfb61681ebf8582a2bd"
+    },
+    {
+      "condition": "R_FUTURE_FULL",
+      "fold": 3,
+      "path": "results/phase_s12c/checkpoints/r_future_full/r_future_full_fold3_best_v1.pt",
+      "sha256": "22a52b3c6102019fd7f115e9f180b5b85ba1bc54383805d254eea1270ec8cd0f"
+    },
+    {
+      "condition": "R_FUTURE_FULL",
+      "fold": 4,
+      "path": "results/phase_s12c/checkpoints/r_future_full/r_future_full_fold4_best_v1.pt",
+      "sha256": "5435bca155ef5459091c0b4512e0ca9f0f6466ced0f377c664ef23337cb62c83"
+    },
+    {
+      "condition": "R_FUTURE_NO_PRODUCT",
+      "fold": 0,
+      "path": "results/phase_s12c/checkpoints/r_future_no_product/r_future_no_product_fold0_best_v1.pt",
+      "sha256": "3da8a7d4b93f2535cfc81cda0b4a8e0870ff942dfeae10aeb8c931217acbbf56"
+    },
+    {
+      "condition": "R_FUTURE_NO_PRODUCT",
+      "fold": 1,
+      "path": "results/phase_s12c/checkpoints/r_future_no_product/r_future_no_product_fold1_best_v1.pt",
+      "sha256": "f126f286e36447658567cbcf0297297c7298723449e03801826cea736ffe100b"
+    },
+    {
+      "condition": "R_FUTURE_NO_PRODUCT",
+      "fold": 2,
+      "path": "results/phase_s12c/checkpoints/r_future_no_product/r_future_no_product_fold2_best_v1.pt",
+      "sha256": "e7da52c81e21474f0e15b00daf69eb566b3e8867a578ba3f26a99bba8bb553a5"
+    },
+    {
+      "condition": "R_FUTURE_NO_PRODUCT",
+      "fold": 3,
+      "path": "results/phase_s12c/checkpoints/r_future_no_product/r_future_no_product_fold3_best_v1.pt",
+      "sha256": "ccf630ebebb695aab646fc62b52242bc0868d4e8a3546ded8aa7bdc2815f9e87"
+    },
+    {
+      "condition": "R_FUTURE_NO_PRODUCT",
+      "fold": 4,
+      "path": "results/phase_s12c/checkpoints/r_future_no_product/r_future_no_product_fold4_best_v1.pt",
+      "sha256": "a5308a93d97d0029e9f2c915d21c22a190af111a2bf3ef68ab0ea5741b0ccfbf"
+    },
+    {
+      "condition": "QR_FUTURE_FULL",
+      "fold": 0,
+      "path": "results/phase_s12c/checkpoints/qr_future_full/qr_future_full_fold0_best_v1.pt",
+      "sha256": "6fc6698f3427cbda77d73b36468aeddaff27425fc4d4c723c36396246a8dd219"
+    },
+    {
+      "condition": "QR_FUTURE_FULL",
+      "fold": 1,
+      "path": "results/phase_s12c/checkpoints/qr_future_full/qr_future_full_fold1_best_v1.pt",
+      "sha256": "4e3c3d7f05e654194483d25d232fb1ccf86f0ff4620edacfa1db4585c51c1e6d"
+    },
+    {
+      "condition": "QR_FUTURE_FULL",
+      "fold": 2,
+      "path": "results/phase_s12c/checkpoints/qr_future_full/qr_future_full_fold2_best_v1.pt",
+      "sha256": "21a7114444ffe0e906a5cd00e02766953ed01f9aa47277dfa02502fd17babb2c"
+    },
+    {
+      "condition": "QR_FUTURE_FULL",
+      "fold": 3,
+      "path": "results/phase_s12c/checkpoints/qr_future_full/qr_future_full_fold3_best_v1.pt",
+      "sha256": "830307d6850b4ab3b766f398854eba8bd9e53a586bbcbc43fdcfbc6bdb36b876"
+    },
+    {
+      "condition": "QR_FUTURE_FULL",
+      "fold": 4,
+      "path": "results/phase_s12c/checkpoints/qr_future_full/qr_future_full_fold4_best_v1.pt",
+      "sha256": "63fcd486368558bedfedf291e3178e84b97744d52120d993814c231abf1fc87b"
+    },
+    {
+      "condition": "QR_FUTURE_NO_PRODUCT",
+      "fold": 0,
+      "path": "results/phase_s12c/checkpoints/qr_future_no_product/qr_future_no_product_fold0_best_v1.pt",
+      "sha256": "f3a0dcf50c5b3f6f27031ef413b5f5c217a0fd85cc4d17fa966f24ceb1841556"
+    },
+    {
+      "condition": "QR_FUTURE_NO_PRODUCT",
+      "fold": 1,
+      "path": "results/phase_s12c/checkpoints/qr_future_no_product/qr_future_no_product_fold1_best_v1.pt",
+      "sha256": "09cd0410ce3aead29d6f0194fff284796498ace8b204a45a0ea811018e7f4bde"
+    },
+    {
+      "condition": "QR_FUTURE_NO_PRODUCT",
+      "fold": 2,
+      "path": "results/phase_s12c/checkpoints/qr_future_no_product/qr_future_no_product_fold2_best_v1.pt",
+      "sha256": "0de42aacadd80110f8449e637e7a5eb04469421f1d1df07012423b020c0e19fb"
+    },
+    {
+      "condition": "QR_FUTURE_NO_PRODUCT",
+      "fold": 3,
+      "path": "results/phase_s12c/checkpoints/qr_future_no_product/qr_future_no_product_fold3_best_v1.pt",
+      "sha256": "e3e2395505b240998756444928a729ca5f37c1cd21cc7f4f3c0b0509bbf56239"
+    },
+    {
+      "condition": "QR_FUTURE_NO_PRODUCT",
+      "fold": 4,
+      "path": "results/phase_s12c/checkpoints/qr_future_no_product/qr_future_no_product_fold4_best_v1.pt",
+      "sha256": "1464fc574677cd6e891f5bbbbc17f808ccfac8e37de5fffe0443de154b2510d7"
+    }
+  ],
+  "ensemble": {
+    "folds": 5,
+    "checkpoint_selection": "existing_best_v1",
+    "aggregation": "arithmetic_mean_of_five_raw_ranking_scores",
+    "retraining": false,
+    "checkpoint_reselection": false
+  },
+  "ranking": {
+    "metrics": [
+      "Dialogue-macro MRR",
+      "Dialogue-macro R@1",
+      "Dialogue-macro R@5",
+      "Dialogue-macro R@10",
+      "Dialogue-macro R@20"
+    ],
+    "aggregation": "Average query metrics within each dialogue, then unweighted mean across dialogues.",
+    "tie_rule": "All negative candidates with score >= Gold score are ranked before Gold."
+  },
+  "statistics": {
+    "method": "paired_dialogue_cluster_bootstrap",
+    "replicates": 2000,
+    "seed": 20261027,
+    "confidence_level": 0.95,
+    "resampling_unit": "dialogue"
+  },
+  "planned_contrasts": {
+    "baseline_comparisons": [
+      "all learned conditions versus DENSE_BGE",
+      "all learned conditions versus RANK_ONLY"
+    ],
+    "product_ablation": [
+      "R_FUTURE_FULL versus R_FUTURE_NO_PRODUCT",
+      "QR_FUTURE_FULL versus QR_FUTURE_NO_PRODUCT"
+    ]
+  },
+  "output_directory": "results/phase_s12c/external_test_v1",
+  "training": false,
+  "inference": "not_yet_run"
+}
